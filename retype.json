@@ -1,5 +1,10 @@
 {
     "input": "./",
     "output": ".retype",
-    "cname": "phasetw0.com"
+    "cname": "phasetw0.com",
+    
+    "branding": {
+        "title": "phasetw0",
+        "label": "phasetw0 blog"
+    }
   }
