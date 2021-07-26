@@ -1,5 +1,5 @@
 # Writing Optimized Windows Shellcode in C 
-
+Stolen/Compiled by 11philip22
 ## Introduction
 Since the original article describing this technique was taken down for unknown reason, I felt the need to "steal" it because i find this shellcode writing technique extremely usefull.  
 You can still read the original article here: https://web.archive.org/web/20210305190309/http://www.exploit-monday.com/2013/08/writing-optimized-windows-shellcode-in-c.html  
@@ -392,10 +392,12 @@ Write-Host "Shellcode length: 0x$(($ShellcodeLength + 1).ToString('X4'))"
 
 </p>
 </details>  
-https://github.com/mattifestation/PIC_Bindshell/blob/master/PIC_Bindshell/Get-PEHeader.ps1
+
+https://github.com/mattifestation/PIC_Bindshell/blob/master/PIC_Bindshell/Get-PEHeader.ps1  
+
 <details><summary>Click to expand!</summary>
 <p>
-	
+
 ```ps1
 function Get-PEHeader
 {
