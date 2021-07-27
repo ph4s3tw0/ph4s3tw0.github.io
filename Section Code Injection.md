@@ -49,7 +49,7 @@ else {
 ```
 
 Now we create our section. We create it using RWX permissions.  
-Please note that this PoC is returning `NTSTATUS` values and not `System Error Codes` to convert `NTSTATUS` values on could use the `RtlNtStatusToDosError` function.
+Please note that this PoC is returning `NTSTATUS` values and not `System Error Codes` to convert `NTSTATUS` values one could use the `RtlNtStatusToDosError` function.
 ```C
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
 
