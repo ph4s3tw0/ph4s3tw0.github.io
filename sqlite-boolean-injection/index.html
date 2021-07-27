@@ -15,12 +15,14 @@
     <meta property="og:url" content="https://phasetw0.com/sqlite-boolean-injection/">
     <meta property="og:title" content="ImginaryCTF - Awkward_Bypass Writeup">
     <meta property="og:description" content="Written by sudoutopia">
+    <meta property="og:image" content="https://phasetw0.com/images/imaginaryctf/webpage.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://phasetw0.com/sqlite-boolean-injection/">
     <meta property="twitter:title" content="ImginaryCTF - Awkward_Bypass Writeup">
     <meta property="twitter:description" content="Written by sudoutopia">
+    <meta property="twitter:image" content="https://phasetw0.com/images/imaginaryctf/webpage.png">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -387,7 +389,7 @@ sqlite&gt;</code></pre>
 </doc-anchor-target>
 <p>Visiting <code v-pre>https://awkward-bypass.chal.imaginaryctf.org/</code> shows this webpage,</p>
 <p><figure class="content-center">
-    <img src="images/webpage.png" alt="webpage" />
+    <img src="../images/imaginaryctf/webpage.png" alt="webpage" />
     <figcaption class="caption">webpage</figcaption>
 </figure>
 </p>
@@ -406,7 +408,7 @@ sqlite&gt;</code></pre>
 </doc-codeblock></div>
 <p>Inputting wrong credentials, redirects us to <code v-pre>https://awkward-bypass.chal.imaginaryctf.org/user</code> with a response saying <code v-pre>Error</code></p>
 <p><figure class="content-center">
-    <img src="images/errorlogin.png" alt="errorpage" />
+    <img src="images/imginaryCTF/errorlogin.png" alt="errorpage" />
     <figcaption class="caption">errorpage</figcaption>
 </figure>
 </p>
@@ -522,7 +524,7 @@ SELECT * FROM users WHERE username='' OR 1=1 -- -' AND password='blabla'  &lt;--
 </doc-anchor-target>
 <p>We can bypass authenticated pretty easily with the payload <code v-pre>' OorR 1=1; -- -</code>, this is pretty standard and basic.</p>
 <p><figure class="content-center">
-    <img src="images/injected.png" alt="injected" />
+    <img src="images/imginaryCTF/injected.png" alt="injected" />
     <figcaption class="caption">injected</figcaption>
 </figure>
 </p>
