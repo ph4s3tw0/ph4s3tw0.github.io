@@ -386,7 +386,11 @@ sqlite&gt;</code></pre>
     </h3>
 </doc-anchor-target>
 <p>Visiting <code v-pre>https://awkward-bypass.chal.imaginaryctf.org/</code> shows this webpage,</p>
-<p>1.png</p>
+<p><figure class="content-center">
+    <img src="images/webpage.png" alt="webpage" />
+    <figcaption class="caption">webpage</figcaption>
+</figure>
+</p>
 <p>Seems like a standard webpage with nothing interesting, and viewing the source also is false hope as it has includes nothing out of the ordinary or of interest.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-markup"><code v-pre class="language-markup">&lt;!DOCTYPE HTML&gt; &lt;style&gt; input {
@@ -401,7 +405,11 @@ sqlite&gt;</code></pre>
 	} &lt;/style&gt; &lt;center&gt; &lt;h1&gt;Login to get the flag 😉&lt;h1&gt; &lt;form action=&quot;[/user](view-source:https://awkward-bypass.chal.imaginaryctf.org/user)&quot; method=&quot;POST&quot;&gt; &lt;input type=&quot;text&quot; placeholder=&quot;Username&quot; name=&quot;username&quot;&gt;&lt;/input&gt; &lt;br&gt; &lt;input type=&quot;text&quot; placeholder=&quot;Password&quot; name=&quot;password&quot;&gt;&lt;/input&gt; &lt;br&gt; &lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;&lt;/input&gt; &lt;/form&gt; &lt;/center&gt;</code></pre>
 </doc-codeblock></div>
 <p>Inputting wrong credentials, redirects us to <code v-pre>https://awkward-bypass.chal.imaginaryctf.org/user</code> with a response saying <code v-pre>Error</code></p>
-<p>2.png</p>
+<p><figure class="content-center">
+    <img src="images/errorlogin.png" alt="errorpage" />
+    <figcaption class="caption">errorpage</figcaption>
+</figure>
+</p>
 <p>We can assume that when we feed in the correct credentials, it will not respond with that.</p>
 <p>Alright from all the information we&#x27;ve gathered, it seems that we either need to bypass the authentication to retrive the flag, or we need to utilize the behaviour of it returning <code v-pre>Error</code> depending on if a condition is met or not for Boolean SQLi.</p>
 <doc-anchor-target id="trying-to-bypass-the-blacklist">
@@ -513,7 +521,11 @@ SELECT * FROM users WHERE username='' OR 1=1 -- -' AND password='blabla'  &lt;--
     </h3>
 </doc-anchor-target>
 <p>We can bypass authenticated pretty easily with the payload <code v-pre>' OorR 1=1; -- -</code>, this is pretty standard and basic.</p>
-<p>3.png</p>
+<p><figure class="content-center">
+    <img src="images/injected.png" alt="injected" />
+    <figcaption class="caption">injected</figcaption>
+</figure>
+</p>
 <p>It works! Except... we don&#x27;t have the flag, <strong>yet</strong>. We now have to enumerate the table name column <code v-pre>password</code> which contains the flag using boolean SQLi.</p>
 <doc-anchor-target id="exploiting-boolean-sqli-to-retrive-flag-from-db">
     <h3>
