@@ -8,19 +8,19 @@
     <!-- Primary Meta Tags -->
     <title>ImginaryCTF - Awkward_Bypass Writeup</title>
     <meta name="title" content="ImginaryCTF - Awkward_Bypass Writeup">
-    <meta name="description" content="During the weekends, it's nothing atypical for CTFs competitions to start, in which you can compete in." />
+    <meta name="description" content="Written by sudoutopia" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://phasetw0.com/sqlite-boolean-injection/">
     <meta property="og:title" content="ImginaryCTF - Awkward_Bypass Writeup">
-    <meta property="og:description" content="During the weekends, it's nothing atypical for CTFs competitions to start, in which you can compete in.">
+    <meta property="og:description" content="Written by sudoutopia">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://phasetw0.com/sqlite-boolean-injection/">
     <meta property="twitter:title" content="ImginaryCTF - Awkward_Bypass Writeup">
-    <meta property="twitter:description" content="During the weekends, it's nothing atypical for CTFs competitions to start, in which you can compete in.">
+    <meta property="twitter:description" content="Written by sudoutopia">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -167,6 +167,7 @@
         <span>ImginaryCTF - Awkward_Bypass Writeup</span>
     </h1>
 </doc-anchor-target>
+<p>Written by sudoutopia</p>
 <doc-anchor-target id="introduction">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#introduction">#</doc-anchor-trigger>
@@ -318,7 +319,7 @@ PLAN&quot;, &quot;PRAGMA&quot;, &quot;PRECEDING&quot;, &quot;PRIMARY&quot;, &quo
 ING&quot;, &quot;RIGHT&quot;, &quot;ROLLBACK&quot;, &quot;ROW&quot;, &quot;ROWS&quot;, &quot;SAVEPOINT&quot;, &quot;SELECT&quot;, &quot;SET&quot;, &quot;TABLE&quot;, &quot;TEMP&quot;, &quot;TEMPORARY&quot;, &quot;THEN&quot;, &quot;TIES&quot;, &quot;TO&quot;, &quot;TRANSACTION&quot;, &quot;TRIGGER&quot;, &quot;UNBOUNDED&quot;, &quot;UNI  
 ON&quot;, &quot;UNIQUE&quot;, &quot;UPDATE&quot;, &quot;USING&quot;, &quot;VACUUM&quot;, &quot;VALUES&quot;, &quot;VIEW&quot;, &quot;VIRTUAL&quot;, &quot;WHEN&quot;, &quot;WHERE&quot;, &quot;WINDOW&quot;, &quot;WITH&quot;, &quot;WITHOUT&quot;]</code></pre>
 </doc-codeblock></div>
-<p>Seems to be an array of SQL statements and caluses it does not what you to use, which it&#x27;ll strip from your input using <code v-pre>re</code> which is Python&#x27;s Regex library in the <code v-pre>checkCreds()</code> function.</p>
+<p>Seems to be an array of SQL statements and clauses it does not want you to use, which it&#x27;ll strip from your input using <code v-pre>re</code> which is Python&#x27;s Regex library in the <code v-pre>checkCreds()</code> function.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-python"><code v-pre class="language-python">def checkCreds(username, password):  
        con = sqlite3.connect('database.db')  
