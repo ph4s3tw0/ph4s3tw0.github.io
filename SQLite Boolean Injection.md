@@ -1,4 +1,5 @@
 # ImginaryCTF - Awkward_Bypass Writeup
+Written by sudoutopia
 
 ## Introduction
 
@@ -129,7 +130,7 @@ ING", "RIGHT", "ROLLBACK", "ROW", "ROWS", "SAVEPOINT", "SELECT", "SET", "TABLE",
 ON", "UNIQUE", "UPDATE", "USING", "VACUUM", "VALUES", "VIEW", "VIRTUAL", "WHEN", "WHERE", "WINDOW", "WITH", "WITHOUT"]
 ```
 
-Seems to be an array of SQL statements and caluses it does not what you to use, which it'll strip from your input using `re` which is Python's Regex library in the `checkCreds()` function.
+Seems to be an array of SQL statements and clauses it does not want you to use, which it'll strip from your input using `re` which is Python's Regex library in the `checkCreds()` function.
 
 ```py
 def checkCreds(username, password):  
