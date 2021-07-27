@@ -191,7 +191,7 @@ sqlite>
 
 Visiting `https://awkward-bypass.chal.imaginaryctf.org/` shows this webpage,
 
-![webpage](images/webpage.png)
+![webpage](images/imaginaryCTF/webpage.png)
 
 Seems like a standard webpage with nothing interesting, and viewing the source also is false hope as it has includes nothing out of the ordinary or of interest.
 
@@ -210,7 +210,7 @@ Seems like a standard webpage with nothing interesting, and viewing the source a
 
 Inputting wrong credentials, redirects us to `https://awkward-bypass.chal.imaginaryctf.org/user` with a response saying `Error`
 
-![errorpage](images/errorlogin.png)
+![errorpage](images/imginaryCTF/errorlogin.png)
 
 We can assume that when we feed in the correct credentials, it will not respond with that.
 
@@ -321,7 +321,7 @@ We've now officially bypassed the blacklisting/filtering.
 
 We can bypass authenticated pretty easily with the payload `' OorR 1=1; -- -`, this is pretty standard and basic.
 
-![injected](images/injected.png)
+![injected](images/imginaryCTF/injected.png)
 
 It works! Except... we don't have the flag, **yet**. We now have to enumerate the table name column `password` which contains the flag using boolean SQLi.
 
