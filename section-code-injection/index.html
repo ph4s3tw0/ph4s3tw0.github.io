@@ -234,7 +234,7 @@ else {
 }</code></pre>
 </doc-codeblock></div>
 <p>Now we create our section. We create it using RWX permissions.<br />
-Please note that this PoC is returning <code v-pre>NTSTATUS</code> values and not <code v-pre>System Error Codes</code> to convert <code v-pre>NTSTATUS</code> values one could use the <code v-pre>RtlNtStatusToDosError</code> function.</p>
+Please note that this PoC is returning <code v-pre>NTSTATUS</code> values and not <code v-pre>System Error Codes</code>. To convert <code v-pre>NTSTATUS</code> values one could use the <code v-pre>RtlNtStatusToDosError</code> function.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-c"><code v-pre class="language-c">#define NT_SUCCESS(Status) (((NTSTATUS)(Status)) &gt;= 0)
 
