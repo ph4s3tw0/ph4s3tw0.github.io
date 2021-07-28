@@ -16,6 +16,6 @@ Charif - Web
 sudoutopia - Web
 Enleak - Web
 0x00Jeff - Pwn/Rev
-11philip22 - criticizing our python code / pwn / rev
+11philip22 - criticizing our python code / malware
 AndDone - Rev / Web
 SENQU - Web
