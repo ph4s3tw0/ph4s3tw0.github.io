@@ -2,8 +2,25 @@
     "input": "./",
     "output": ".retype",
     "cname": "phasetw0.com",
+    "favicon": "assets/logo.png",
     
+    "meta": {
+        "title": " - phasetw0"
+    },
+
     "branding": {
         "title": "phasetw0",
+        "logo": "assets/logo.png"
+    },
+
+    "links": [
+        {
+          "text": "GitHub",
+          "link": "https://github.com/ph4s3tw0"
+        }
+    ],
+
+    "footer": {
+        "copyright": "© Copyright {{ year }}. [phasetw0](https://phasetw0.com/) All rights reserved."
     }
   }
