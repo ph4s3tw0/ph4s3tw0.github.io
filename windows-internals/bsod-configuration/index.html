@@ -8,20 +8,20 @@
     <!-- Primary Meta Tags -->
     <title>Configuring the Windows 10 x64 Blue Screen of Death</title>
     <meta name="title" content="Configuring the Windows 10 x64 Blue Screen of Death">
-    <meta name="description" content="Disassembled the KeBugCheckEx function" />
+    <meta name="description" content="Some years ago, back in 2010, Mark Russinovich wrote an article on how to change the Windows Vista Blue Screen of Death." />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://phasetw0.com/windows-internals/bsod-configuration/">
     <meta property="og:title" content="Configuring the Windows 10 x64 Blue Screen of Death">
-    <meta property="og:description" content="Disassembled the KeBugCheckEx function">
+    <meta property="og:description" content="Some years ago, back in 2010, Mark Russinovich wrote an article on how to change the Windows Vista Blue Screen of Death.">
     <meta property="og:image" content="https://phasetw0.com/windows-internals/assets/color_var.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://phasetw0.com/windows-internals/bsod-configuration/">
     <meta property="twitter:title" content="Configuring the Windows 10 x64 Blue Screen of Death">
-    <meta property="twitter:description" content="Disassembled the KeBugCheckEx function">
+    <meta property="twitter:description" content="Some years ago, back in 2010, Mark Russinovich wrote an article on how to change the Windows Vista Blue Screen of Death.">
     <meta property="twitter:image" content="https://phasetw0.com/windows-internals/assets/color_var.png">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
@@ -168,32 +168,6 @@
         <span>Configuring the Windows 10 x64 Blue Screen of Death</span>
     </h1>
 </doc-anchor-target>
-<doc-anchor-target id="outline">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#outline">#</doc-anchor-trigger>
-        <span>Outline</span>
-    </h2>
-</doc-anchor-target>
-<ol>
-<li>Disassembled the KeBugCheckEx function</li>
-<li>Find BgpFwDisplayBugCheckScreen</li>
-<li>Analyze BgpFwDisplayBugCheckScreen in IDA and WinDbg</li>
-<li>Dereference pointer chain</li>
-<li>poke memory to great success</li>
-<li>Develop driver</li>
-<li>Learn signature scanning to find offsets dynamically</li>
-<li>Implement IOCTLs to control color</li>
-</ol>
-<doc-anchor-target id="neat-functions">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#neat-functions">#</doc-anchor-trigger>
-        <span>Neat Functions</span>
-    </h2>
-</doc-anchor-target>
-<ul>
-<li>BgpGxProcessQrCodeBitmap - Processes the BSOD QR code bitmap to a BgpRect Struct</li>
-<li>BgpFwDisplayBugCheckScreen - Displays the Blue Screen of Death</li>
-</ul>
 <doc-anchor-target id="introduction">
     <h1>
         <doc-anchor-trigger class="header-anchor-trigger" to="#introduction">#</doc-anchor-trigger>
