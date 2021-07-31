@@ -12,7 +12,7 @@ phastw0 is a penetration testing/CTF team of people who like to spend too much t
 These are the current active members of phasetw0, and their corresinding interests.
 
 Hypervisor - Forensics/Pwn/Rev
-0xAshh - Web/Pwn/AD/Windows
+0xAshh - Web/AD/Windows
 Charif - Web
 sudoutopia - Web
 Enleak - Web
