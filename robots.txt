@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://phasetw0.com/sitemap.xml.gz
