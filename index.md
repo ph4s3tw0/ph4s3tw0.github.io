@@ -13,7 +13,7 @@ These are the current active members of phasetw0, and their corresinding interes
 
 Hypervisor - Forensics/Pwn/Rev
 0xAshh - Web/AD/Windows
-Charif - Web
+Charif - Browser Pwn
 sudoutopia - Web
 Enleak - Web
 0x00Jeff - Pwn/Rev
