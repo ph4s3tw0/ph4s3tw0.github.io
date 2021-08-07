@@ -9,14 +9,14 @@ phastw0 is a penetration testing/CTF team of people who like to spend too much t
 
 ## Current members
 
-These are the current active members of phasetw0, and their corresinding interests.
+These are the current active members of phasetw0, and their corresinding interests.  
 
-Hypervisor - Forensics/Pwn/Rev
-0xAshh - Web/AD/Windows
-Charif - Browser Pwn
-sudoutopia - Web
-Enleak - Web
-0x00Jeff - Pwn/Rev
-11philip22 - criticizing our python code / malware
-AndDone - Rev / Web
-SENQU - Web
+Hypervisor - Forensics/Pwn/Rev  
+0xAshh - Web/AD/Windows  
+Charif - Browser Pwn  
+sudoutopia - Web  
+Enleak - Web  
+0x00Jeff - Pwn/Rev  
+11philip22 - criticizing our python code / malware  
+AndDone - Rev / Web  
+SENQU - Web  
