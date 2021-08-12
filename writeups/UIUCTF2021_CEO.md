@@ -77,7 +77,7 @@ I then manually entered each one into the Wireshark decryption keys section. Whi
 ## Flag
 Some frustrated research later led me to realizing there's an alternate path to success.
 
-Wi-fi traffic typicall contains a 4-way handshake used to encapsulate the packets between a router and client.
+Wi-fi traffic typically contains a 4-way handshake between a router and client.
 
 We can easily view this handshake by using the `eapol` filter in Wireshark.
 
@@ -98,7 +98,7 @@ After that we just give it the `.cap` file and a name to write to:
 
 ![Getting a hccapx](https://user-images.githubusercontent.com/51839088/129174610-be5c4e09-93c3-48aa-9e20-07cfc30696b7.png)
 
-Now we can use Hashcat to crack it.
+We can then use Hashcat to crack it:
 
 `~/ctf/uiuctf_2021/misc/CEO:> $ hashcat -m 2500 hccapx-out /usr/share/wordlists/rockyou.txt --force `
 
