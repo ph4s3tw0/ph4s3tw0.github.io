@@ -27,11 +27,11 @@
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="/assets/logo.png" rel="icon" />
-    <link href="/resources/css/retype.css?v=1.8.2.682096564834" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.8.2.682100558946" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.8.2.682096564834" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.8.2.682100558946" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.8.2" defer data-turbo-track="reload"></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.8.2.682096564834" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.8.2.682100558946" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -287,7 +287,7 @@ manunited</code></pre>
     </h2>
 </doc-anchor-target>
 <p>Some frustrated research later led me to realizing there&#x27;s an alternate path to success.</p>
-<p>Wi-fi traffic typicall contains a 4-way handshake used to encapsulate the packets between a router and client.</p>
+<p>Wi-fi traffic typically contains a 4-way handshake between a router and client.</p>
 <p>We can easily view this handshake by using the <code v-pre>eapol</code> filter in Wireshark.</p>
 <p><figure class="content-center">
     <img src="https://user-images.githubusercontent.com/51839088/129173831-6d979fa8-e85d-4ab8-989e-338d0e8a549d.png" alt="viewing eapol" />
@@ -315,7 +315,7 @@ manunited</code></pre>
     <figcaption class="caption">Getting a hccapx</figcaption>
 </figure>
 </p>
-<p>Now we can use Hashcat to crack it.</p>
+<p>We can then use Hashcat to crack it:</p>
 <p><code v-pre>~/ctf/uiuctf_2021/misc/CEO:&gt; $ hashcat -m 2500 hccapx-out /usr/share/wordlists/rockyou.txt --force </code></p>
 <p><figure class="content-center">
     <img src="https://user-images.githubusercontent.com/51839088/129174858-af1113b3-7f0f-4288-bd57-3503f09eff5b.png" alt="" />
