@@ -6,23 +6,23 @@
     <meta name="turbo-cache-control" content="no-cache">
 
     <!-- Primary Meta Tags -->
-    <title>Configuring the Windows 10 x64 Blue Screen of Death - phasetw0</title>
-    <meta name="title" content="Configuring the Windows 10 x64 Blue Screen of Death - phasetw0">
-    <meta name="description" content="Some years ago, back in 2010, Mark Russinovich wrote an article on how to change the Windows Vista Blue Screen of Death." />
+    <title>UIUCTF 2021 - CEO Writeup - phasetw0</title>
+    <meta name="title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
+    <meta name="description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://phasetw0.com/windows-internals/bsod-configuration/">
-    <meta property="og:title" content="Configuring the Windows 10 x64 Blue Screen of Death - phasetw0">
-    <meta property="og:description" content="Some years ago, back in 2010, Mark Russinovich wrote an article on how to change the Windows Vista Blue Screen of Death.">
-    <meta property="og:image" content="https://phasetw0.com/windows-internals/assets/clearscreen.png">
+    <meta property="og:url" content="https://phasetw0.com/writeups/uiuctf2021_ceo/">
+    <meta property="og:title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
+    <meta property="og:description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap">
+    <meta property="og:image" content="https://user-images.githubusercontent.com/51839088/129170333-68eb291e-509c-4255-847e-181e1753b41c.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://phasetw0.com/windows-internals/bsod-configuration/">
-    <meta property="twitter:title" content="Configuring the Windows 10 x64 Blue Screen of Death - phasetw0">
-    <meta property="twitter:description" content="Some years ago, back in 2010, Mark Russinovich wrote an article on how to change the Windows Vista Blue Screen of Death.">
-    <meta property="twitter:image" content="https://phasetw0.com/windows-internals/assets/clearscreen.png">
+    <meta property="twitter:url" content="https://phasetw0.com/writeups/uiuctf2021_ceo/">
+    <meta property="twitter:title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
+    <meta property="twitter:description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap">
+    <meta property="twitter:image" content="https://user-images.githubusercontent.com/51839088/129170333-68eb291e-509c-4255-847e-181e1753b41c.png">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -31,6 +31,7 @@
 
     <script type="text/javascript" src="/resources/js/config.js?v=1.8.2.682077061334" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.8.2" defer data-turbo-track="reload"></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.8.2.682077061334" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -180,89 +181,172 @@
                 <div id="docs-sidebar-right-toggle"></div>
                
                 <!-- Page content  -->
-<doc-anchor-target id="configuring-the-windows-10-x64-blue-screen-of-death" class="break-words">
+<doc-anchor-target id="uiuctf-2021---ceo-writeup" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#configuring-the-windows-10-x64-blue-screen-of-death">#</doc-anchor-trigger>
-        <span>Configuring the Windows 10 x64 Blue Screen of Death</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uiuctf-2021---ceo-writeup">#</doc-anchor-trigger>
+        <span>UIUCTF 2021 - CEO Writeup</span>
     </h1>
 </doc-anchor-target>
-<doc-anchor-target id="introduction">
+<p>CEO was a &quot;misc&quot; challenge during UIUCTF 2021 in which you need to inspect and gather creds from a <code v-pre>.pcap</code> file. It was rated as a &quot;beginner&quot; challenge in a CTF that was <em>extremely</em> challenging for myself, and forced me to dust off some serious CTF cob webs. While it&#x27;s not a very glamorous chall, this writeup aims to simply note some of the techniques I used to get the flag. So with that said, let&#x27;s jump in.</p>
+<doc-anchor-target id="the-prompt">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#introduction">#</doc-anchor-trigger>
-        <span>Introduction</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#the-prompt">#</doc-anchor-trigger>
+        <span>The Prompt</span>
     </h2>
 </doc-anchor-target>
-<p>Some years ago, back in 2010, Mark Russinovich <a href="https://techcommunity.microsoft.com/t5/windows-blog-archive/a-bluescreen-by-any-other-color/ba-p/723974">wrote an article</a> on how to change the Windows Vista Blue Screen of Death. In the article Mark goes over disassembling the <code v-pre>KeBugCheck2</code> and <code v-pre>KiDisplayBlueScreen</code> functions in WinDbg, and subsequently editing the memory of the kernel to change the blue screen colors. He later implemented a crash color picker into <code v-pre>NotMyFault</code>, a tool for crashing Windows, that worked by changing the VGA color palette (as at the time, blue screens were shown in VGA text mode). When Windows 8 rolled around, Microsoft decided that the blue screen should be less frightening, and added a sad emoticon to the crash screen, along with removing most of the crash information in favor of simplifying everything. This new blue screen was implemented using UEFI, specifically using the Graphics Output Protocol (GOP). Due to the new blue screen not using VESA/VGA, the <code v-pre>NotMyFault</code> color picker no longer worked, and nobody since has tried to replicate it&#x27;s functionality on the latest versions of Windows, until now that is.</p>
-<doc-anchor-target id="what-even-is-a-blue-screen-of-death">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#what-even-is-a-blue-screen-of-death">#</doc-anchor-trigger>
-        <span>What even is a &quot;Blue Screen of Death&quot;?</span>
-    </h2>
-</doc-anchor-target>
-<p>I started my quest to configure the Blue Screen by disassembling <code v-pre>ntoskrnl.exe </code>, the executive kernel that oversees everything in Windows. Blue Screens appear when the Windows kernel is in an unrecoverable state. This can happen when a &quot;Bug Check&quot; occurs in the system, which happens whenever a bug occurs in the kernel level. Bug Checks are a preventative measure, so that there is no loss of data and the system can halt gracefully. Drivers can call the function <code v-pre>KeBugCheck</code> to trigger a bug check, and crash the system. Due to <code v-pre>KeBugCheck</code> being the function that triggers the blue screen, I decided to start reverse engineering there.</p>
-<doc-anchor-target id="disassembling-ntoskrnlexe">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#disassembling-ntoskrnlexe">#</doc-anchor-trigger>
-        <span>Disassembling ntoskrnl.exe</span>
-    </h2>
-</doc-anchor-target>
-<p>After going through some iterations of <code v-pre>KeBugCheck</code>, I finally find a noteworthy function, <code v-pre>KiDisplayBlueScreen</code>. In this function, the kernel appears to send debug information over serial, and prepare to display the blue screen. While <code v-pre>KiDisplayBlueScreen</code> is not directly responsible for displaying the blue screen, it does call a rather interesting function that does, <code v-pre>BgpFwDisplayBugCheckScreen</code>. In this function, we find out that the screen is cleared and the background is set using <code v-pre>BgpClearScreen</code>, which takes in a color as a parameter. The color passed to <code v-pre>BgpClearScreen</code> is found by accessing some structs that I reversed.</p>
+<p>Viewing the challenge, we&#x27;re prompted with the following note.</p>
 <p><figure class="content-center">
-    <img src="../assets/clearscreen.png" alt="clear_screen" />
-    <figcaption class="caption">clear_screen</figcaption>
+    <img src="https://user-images.githubusercontent.com/51839088/129170333-68eb291e-509c-4255-847e-181e1753b41c.png" alt="chall" />
+    <figcaption class="caption">chall</figcaption>
 </figure>
 </p>
-<p>Well how does <code v-pre>BgpCriticalState</code> get initialized? Following the xrefs led me to <code v-pre>BgpBcInitializeCriticalMode</code>, a function that gets called early in the Windows boot phase. This function sets all of the error messages shown in the blue screen, font information, and the key variable we are looking for, the background color.</p>
+<p><strong>Note: During the initial stages of the CTF, this sentence was not in the challenge prompt: &quot;Wrap the password in the flag format.&quot;
+This led me down some rabbit holes that we&#x27;ll see later.</strong></p>
+<doc-anchor-target id="initial-analysis">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#initial-analysis">#</doc-anchor-trigger>
+        <span>Initial Analysis</span>
+    </h2>
+</doc-anchor-target>
+<p>After downloading the <code v-pre>.pcap</code> and opening it in Wireshark, we can see there&#x27;s quite a bit of traffic, mostly using the 802.11 protocol.</p>
 <p><figure class="content-center">
-    <img src="../assets/color_var.png" alt="color_var" />
-    <figcaption class="caption">color_var</figcaption>
+    <img src="https://user-images.githubusercontent.com/51839088/129171054-24fb4e55-178b-4eab-8302-c9f5baa95c56.png" alt="Wireshark" />
+    <figcaption class="caption">Wireshark</figcaption>
 </figure>
 </p>
-<p>Noting the hex color format, it appears to be in ARGB format (Alpha, Red, Green, Blue). This is further supported by disassembling <code v-pre>BgpClearScreen</code>. <code v-pre>BgpClearScreen</code> works by essentially drawing a rectangle the size of your boot screen resolution and filling the rectangle with the specified color.</p>
-<p><img src="../assets/fill_rect.png" alt="fill_rect" /></p>
-<p>As you can see, the most significant byte is set to the alpha, while the RGB colors get set by popping off the most significant byte (removing the A from ARGB). So, if we wanted to draw a red rectangle to the screen, we would use the color value <code v-pre>0xFFFF0000</code>.</p>
-<p>With our target in mind, I began work on developing a Proof of Concept.</p>
-<doc-anchor-target id="writing-a-kernel-level-driver-for-windows">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#writing-a-kernel-level-driver-for-windows">#</doc-anchor-trigger>
-        <span>Writing a kernel level driver for Windows</span>
-    </h2>
-</doc-anchor-target>
-<p>So to change the color stored at the <code v-pre>BgpCriticalState</code>, I would need to modify the process memory of <code v-pre>ntoskrnl.exe</code>.  Luckily, in kernel space, every object shares the same address space, and can read and write each other&#x27;s memory. That meant I just had to find the address of <code v-pre>BgpCriticalState</code>, dereference the offset to <code v-pre>BugCheckInfo</code>, and dereference the offset to the color address. To find the address of <code v-pre>BgpCriticalState</code>, I couldn&#x27;t just grab the address from the process memory. Odds would be that address would only last for one hotfix, and I needed something more consistent.</p>
-<p>After doing some reversing with WinDbg, I found the offset between <code v-pre>BgpFwDisplayBugCheckScreen</code> and <code v-pre>BgpCriticalState</code>. While this offset could still be inconsistent, it would last longer than other methods. So now, all I needed to do was find <code v-pre>BgpFwDisplayBugCheckScreen</code> in memory. This proved difficult, as this function is not exported by <code v-pre>ntoskrnl.exe</code>. To get around this, I utilized a trick known as &quot;signature scanning&quot;, where I take the first 100 bytes of the <code v-pre>BgpFwDisplayBugCheckScreen</code>, and go through each byte of the executive&#x27;s memory, scanning for that pattern.</p>
-<p>Once I found all the offsets I needed, it was just a matter of implementing it in C code.</p>
-<doc-anchor-target id="example">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#example">#</doc-anchor-trigger>
-        <span>Example</span>
-    </h2>
-</doc-anchor-target>
-<p>So far, this example only works with UEFI (as far as I know). This driver has been tested with Windows 10 x64 20H2.</p>
+<p>If we click <code v-pre>Wireless &gt; WLAN Traffic</code> in Wireshark we can see that the SSID related to this captured traffic is: <code v-pre>joesheer</code>.</p>
 <p><figure class="content-center">
-    <img src="../assets/rsod.png" alt="RSOD" />
-    <figcaption class="caption">RSOD</figcaption>
+    <img src="https://user-images.githubusercontent.com/51839088/129171260-db6ac97e-1126-4425-b357-a023d4b2f7bb.png" alt="SSID" />
+    <figcaption class="caption">SSID</figcaption>
 </figure>
 </p>
-<p>If this doesn&#x27;t work in a future version or in x86, yeah makes sense. This is very PoC!</p>
-<p>Go check it out on the <a href="https://github.com/ph4s3tw0/BSODConfigure">phasetw0 Github</a> now!</p>
-<p>When testing, make sure to to enable testing using <code v-pre>bcdedit /set testsigning on</code>.</p>
-<doc-anchor-target id="remarks">
+<doc-anchor-target id="original-rabbit-hole">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#remarks">#</doc-anchor-trigger>
-        <span>Remarks</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#original-rabbit-hole">#</doc-anchor-trigger>
+        <span>Original Rabbit Hole</span>
     </h2>
 </doc-anchor-target>
-<p>Just a side note for future me (and you reading this), there is a neat function that gets called early in the Windows boot stage called <code v-pre>BgpGxProcessQrCodeBitmap </code>. This function loads in a bitmap for the QR code into a BgpRect struct, which gets displayed when <code v-pre>BgpFwDisplayBugCheckScreen</code> gets called.  One might be able to modify it to display any image, which would be pretty neat.</p>
-<doc-anchor-target id="references">
+<p>So as I mentioned earlier, the original challenge prompt was a little.... well a whole lot different.
+If you clicked the original hint it mentioned doing some OSINT on the CEO to get the Wi-fi password.</p>
+<p>I did some research and found that if you know the password used in captured 802.11 traffic, you can enter the password and wireshark will decrypt it.</p>
+<p>We can do this pretty easily by right clicking a captured 802.11 packet and hitting:</p>
+<p><code v-pre>Protocol Preferences -&gt; IEEE 802.11 Wireless LAN -&gt; Decryption Keys...</code></p>
+<p>Then create a new entry with the little plus at the bottom, select <code v-pre>wpa-pwd</code> as the key type, and enter the password in the <code v-pre>key</code> field.</p>
+<p><figure class="content-center">
+    <img src="https://user-images.githubusercontent.com/51839088/129172075-040d5d61-d5b6-4206-bf98-18549d5153e0.png" alt="decryption keys" />
+    <figcaption class="caption">decryption keys</figcaption>
+</figure>
+</p>
+<p>Anyways, knowing this my train of thought for the challenge was:</p>
+<ol>
+<li>Get potential password from OSINT on the CEO</li>
+<li>Enter password in Wireshark</li>
+<li>Find key in decrypted traffic</li>
+</ol>
+<p>Using the information we&#x27;ve gathered so far, we can find the CEO&#x27;s twitter account pretty easily:</p>
+<p><figure class="content-center">
+    <img src="https://user-images.githubusercontent.com/51839088/129172523-279c1a3d-f473-437f-a9a6-5153e44dda64.png" alt="Google searching" />
+    <figcaption class="caption">Google searching</figcaption>
+</figure>
+</p>
+<p><figure class="content-center">
+    <img src="https://user-images.githubusercontent.com/51839088/129172556-72534735-4e1c-4773-aa0d-562654f833ec.png" alt="CEO twitter" />
+    <figcaption class="caption">CEO twitter</figcaption>
+</figure>
+</p>
+<p>And this is where the rabbit hole begins.
+I spent more time than I&#x27;d like to admit searching through this account, his followers, who he&#x27;s following... their tweets... all to no avail.</p>
+<p>At a certain point I got desparate and wondered if I should just start guessing based on what he was talking about. After all it&#x27;s a beginner challenge right?</p>
+<p>Here&#x27;s my original wordlist concocted from his tweets/rewteets:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">~/Downloads/wifi:&gt; $ cat fuckme.txt         
+megacorpone
+megacorp
+nanotech
+nanotechnology
+nano-technology
+MegaCorp_One
+MegaCorp
+DavidBeckham
+USA
+US
+equestrian
+horse
+horses
+soccer
+football
+manchesterunited
+manu
+manunited</code></pre>
+</doc-codeblock></div>
+<p>I then manually entered each one into the Wireshark decryption keys section. While this didn&#x27;t work, as you&#x27;ll see later I actually wasn&#x27;t far off.</p>
+<doc-anchor-target id="flag">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#references">#</doc-anchor-trigger>
-        <span>References</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#flag">#</doc-anchor-trigger>
+        <span>Flag</span>
     </h2>
 </doc-anchor-target>
-<p><a href="https://techcommunity.microsoft.com/t5/windows-blog-archive/a-bluescreen-by-any-other-color/ba-p/723974">https://techcommunity.microsoft.com/t5/windows-blog-archive/a-bluescreen-by-any-other-color/ba-p/723974</a></p>
-<p><a href="https://techcommunity.microsoft.com/t5/windows-blog-archive/8220-blue-screens-8221-in-designer-colors-with-one-click/ba-p/723977">https://techcommunity.microsoft.com/t5/windows-blog-archive/8220-blue-screens-8221-in-designer-colors-with-one-click/ba-p/723977</a>
-<a href="https://en.wikipedia.org/wiki/Blue_screen_of_death">https://en.wikipedia.org/wiki/Blue_screen_of_death</a></p>
-<p><a href="https://colinxu.wordpress.com/2012/09/03/change-windows-8-bsod-color-and-emoticon/">https://colinxu.wordpress.com/2012/09/03/change-windows-8-bsod-color-and-emoticon/</a></p>
+<p>Some frustrated research later led me to realizing there&#x27;s an alternate path to success.</p>
+<p>Wi-fi traffic typicall contains a 4-way handshake used to encapsulate the packets between a router and client.</p>
+<p>We can easily view this handshake by using the <code v-pre>eapol</code> filter in Wireshark.</p>
+<p><figure class="content-center">
+    <img src="https://user-images.githubusercontent.com/51839088/129173831-6d979fa8-e85d-4ab8-989e-338d0e8a549d.png" alt="viewing eapol" />
+    <figcaption class="caption">viewing eapol</figcaption>
+</figure>
+</p>
+<p>This essentially just means that the client and host have agreed to talk to eachother, and the traffic is encapsulated.</p>
+<p>What this also means for us is that there&#x27;s a valid WPA key (we already knew this but pretend you didn&#x27;t) that we can crack.</p>
+<doc-anchor-target id="cracking-the-password">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#cracking-the-password">#</doc-anchor-trigger>
+        <span>Cracking the password</span>
+    </h3>
+</doc-anchor-target>
+<p>To crack the captured handshake with Hashcat, we&#x27;ll need to use <code v-pre>cap2hccapx</code> to get it into the <a href="https://hashcat.net/wiki/doku.php?id=hccapx">hccapx format</a>.</p>
+<p>This most likely won&#x27;t be in your path by default (if you&#x27;re using Kali), but we can locate it pretty easily.</p>
+<p><figure class="content-center">
+    <img src="https://user-images.githubusercontent.com/51839088/129174463-3c3555c9-1ab5-4275-bee9-9b1a757bef83.png" alt="cap2hccapx" />
+    <figcaption class="caption">cap2hccapx</figcaption>
+</figure>
+</p>
+<p>After that we just give it the <code v-pre>.cap</code> file and a name to write to:</p>
+<p><figure class="content-center">
+    <img src="https://user-images.githubusercontent.com/51839088/129174610-be5c4e09-93c3-48aa-9e20-07cfc30696b7.png" alt="Getting a hccapx" />
+    <figcaption class="caption">Getting a hccapx</figcaption>
+</figure>
+</p>
+<p>Now we can use Hashcat to crack it.</p>
+<p><code v-pre>~/ctf/uiuctf_2021/misc/CEO:&gt; $ hashcat -m 2500 hccapx-out /usr/share/wordlists/rockyou.txt --force </code></p>
+<p><figure class="content-center">
+    <img src="https://user-images.githubusercontent.com/51839088/129174858-af1113b3-7f0f-4288-bd57-3503f09eff5b.png" alt="" />
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>Now we can submit the flag! Except... well I didn&#x27;t initially.</p>
+<p>So I originally didn&#x27;t realize that the Wi-Fi password was the actual flag.</p>
+<p>I falsely assumed that you must use the password to decrypt the traffic then find the flag in some decrypted packet.</p>
+<p>After aimlessly searching through packets, I noticed the challenge writeup was updated and submitted the flag I already had.</p>
+<p>Done!</p>
+<doc-anchor-target id="closing-thoughts">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#closing-thoughts">#</doc-anchor-trigger>
+        <span>Closing Thoughts</span>
+    </h2>
+</doc-anchor-target>
+<p>You might also notice that the cracked password was actually in my original manual wordlist from Twitter. I&#x27;ll be honest I can&#x27;t remember if I noticed that the traffic was decrypted with this password or not. This just added to the overall frustration of the challenge. Unfortunatel as is usually the case with annoying challs I learned allot.</p>
+<p>Thanks for reading :)</p>
+<p><em>Written by 0xAshh</em></p>
+<doc-anchor-target id="hit-me-up">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hit-me-up">#</doc-anchor-trigger>
+        <span>Hit me up</span>
+    </h2>
+</doc-anchor-target>
+<ul>
+<li><a href="https://twitter.com/0xAshhh">Twitter</a></li>
+<li><a href="https://github.com/0xash">GitHub</a></li>
+<li>Discord: Ashh#1446</li>
+</ul>
 
 
 
@@ -274,23 +358,16 @@
             
 <nav class="flex mt-14">
     <div class="w-1/2">
-        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/malware/writing-optimized-windows-shellcode-in-c/">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/writeups/sqlite-boolean-injection/">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
             <span>
                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                <span class="block mt-1">Writing Optimized Windows Shellcode in C</span>
+                <span class="block mt-1">ImginaryCTF - Awkward_Bypass Writeup</span>
             </span>
         </a>
     </div>
 
     <div class="w-1/2">
-        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/writeups/sqlite-boolean-injection/">
-            <span>
-                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                <span class="block mt-1">ImginaryCTF - Awkward_Bypass Writeup</span>
-            </span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
-        </a>
     </div>
 </nav>
 
@@ -335,6 +412,6 @@
 
         <div id="docs-overlay-target"></div>
 
-        <script>window.__DOCS__ = { "title": "Configuring the Windows 10 x64 Blue Screen of Death", icon: "file", hasPrism: false, hasMermaid: false }</script>
+        <script>window.__DOCS__ = { "title": "UIUCTF 2021 - CEO Writeup", icon: "file", hasPrism: true, hasMermaid: false }</script>
     </body>
 </html>
