@@ -8,30 +8,30 @@
     <!-- Primary Meta Tags -->
     <title>UIUCTF 2021 - CEO Writeup - phasetw0</title>
     <meta name="title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
-    <meta name="description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap" />
+    <meta name="description" content="Written by Ashh" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://phasetw0.com/writeups/uiuctf2021_ceo/">
     <meta property="og:title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
-    <meta property="og:description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap">
+    <meta property="og:description" content="Written by Ashh">
     <meta property="og:image" content="https://user-images.githubusercontent.com/51839088/129170333-68eb291e-509c-4255-847e-181e1753b41c.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://phasetw0.com/writeups/uiuctf2021_ceo/">
     <meta property="twitter:title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
-    <meta property="twitter:description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap">
+    <meta property="twitter:description" content="Written by Ashh">
     <meta property="twitter:image" content="https://user-images.githubusercontent.com/51839088/129170333-68eb291e-509c-4255-847e-181e1753b41c.png">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="/assets/logo.png" rel="icon" />
-    <link href="/resources/css/retype.css?v=1.8.2.682077336866" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.8.2.682096371702" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.8.2.682077336866" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.8.2.682096371702" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.8.2" defer data-turbo-track="reload"></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.8.2.682077336866" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.8.2.682096371702" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -187,6 +187,7 @@
         <span>UIUCTF 2021 - CEO Writeup</span>
     </h1>
 </doc-anchor-target>
+<p>Written by Ashh</p>
 <p>CEO was a &quot;misc&quot; challenge during UIUCTF 2021 in which you need to inspect and gather creds from a <code v-pre>.pcap</code> file. It was rated as a &quot;beginner&quot; challenge in a CTF that was <em>extremely</em> challenging for myself, and forced me to dust off some serious CTF cob webs. While it&#x27;s not a very glamorous chall, this writeup aims to simply note some of the techniques I used to get the flag. So with that said, let&#x27;s jump in.</p>
 <doc-anchor-target id="the-prompt">
     <h2>
