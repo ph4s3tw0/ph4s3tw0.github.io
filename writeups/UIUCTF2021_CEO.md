@@ -116,7 +116,7 @@ Done!
 
 ## Closing Thoughts
 
-You might also notice that the cracked password was actually in my original manual wordlist from Twitter. I'll be honest I can't remember if I noticed that the traffic was decrypted with this password or not. This just added to the overall frustration of the challenge. Unfortunatel as is usually the case with annoying challs I learned allot. 
+You might also notice that the cracked password was actually in my original manual wordlist from Twitter. I'll be honest I can't remember if I noticed that the traffic was decrypted with this password or not. This just added to the overall frustration of what should have been a really simple challenge. Oh well, still ended up learning something new.
 
 Thanks for reading :)
 
