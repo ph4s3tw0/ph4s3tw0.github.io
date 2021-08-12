@@ -1,7 +1,5 @@
 # UIUCTF 2021 - CEO Writeup
 
-Written by Ashh
-
 CEO was a "misc" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a `.pcap` file. It was rated as a "beginner" challenge in a CTF that was _extremely_ challenging for myself, and forced me to dust off some serious CTF cob webs. While it's not a very glamorous chall, this writeup aims to simply note some of the techniques I used to get the flag. So with that said, let's jump in.
 
 ## The Prompt
