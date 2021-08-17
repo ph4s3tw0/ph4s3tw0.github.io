@@ -26,4 +26,4 @@ CTFTime team: https://ctftime.org/team/133618
 | <img src="http://phasetw0.com/assets/crucified.png" alt="crucified midget" width="150"/> | <img src="http://phasetw0.com/assets/ashh.jpg" alt="ashh" width="150"/>  |  <img src="http://phasetw0.com/assets/enleak.jpg" alt="Enleak" width="150"/>  |  <img src="http://phasetw0.com/assets/anddone.jpeg" alt="AndDone" width="150"/>  | 
 | ------------- | ------------- | ------------- | ------------- | 
 |   [Crucified Midget](https://github.com/11philip22)  | [Ashh](https://twitter.com/0xAshhh)    |   [Enleak](https://twitter.com/0xenleak)            | [AndDone](https://hackerone.com/anddone?type=user) |
-| python/malware  | web/AD |    web         |  web/re | 
+| malware  | web/AD |    web         |  web/re | 
