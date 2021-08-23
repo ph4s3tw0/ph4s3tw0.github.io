@@ -16,7 +16,7 @@ HackTheBox Team: https://www.hackthebox.eu/home/teams/profile/4088
 CTFTime team: https://ctftime.org/team/133618
 
 
-## The tyrannical overlords
+## Your tyrannical overlords
 
 | <img src="http://phasetw0.com/assets/utopia.png" alt="Utopia" width="150"/> | <img src="http://phasetw0.com/assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="http://phasetw0.com/assets/charif.jpg" alt="Charif" width="150"/> |
 | ------------- | ------------- | ------------- | 
