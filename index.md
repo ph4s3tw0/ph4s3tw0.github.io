@@ -18,12 +18,12 @@ CTFTime team: https://ctftime.org/team/133618
 
 ## Your tyrannical overlords
 
-| <img src="http://phasetw0.com/assets/utopia.png" alt="Utopia" width="150"/> | <img src="http://phasetw0.com/assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="http://phasetw0.com/assets/charif.jpg" alt="Charif" width="150"/> |
+| <img src="/assets/utopia.png" alt="Utopia" width="150"/> | <img src="assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="/assets/charif.jpg" alt="Charif" width="150"/> |
 | ------------- | ------------- | ------------- | 
 |   [sudoutopia](https://sudoutopia.github.io/)  | [Hypervisor](https://twitter.com/hypervis0r)    |   [charif](https://twitter.com/chrf01)            |
-| web/your mom 😳  | pwn/re/forensics |    browser/web         |
+| pwn/web 😳  | pwn/re/forensics |    browser/web         |
 
-| <img src="http://phasetw0.com/assets/crucified.png" alt="crucified midget" width="150"/> | <img src="http://phasetw0.com/assets/ashh.jpg" alt="ashh" width="150"/>  |  <img src="http://phasetw0.com/assets/enleak.jpg" alt="Enleak" width="150"/>  |  <img src="http://phasetw0.com/assets/anddone.jpeg" alt="AndDone" width="150"/>  | 
+| <img src="/assets/crucified.png" alt="crucified midget" width="150"/> | <img src="assets/ashh.jpg" alt="ashh" width="150"/>  |  <img src="/assets/enleak.jpg" alt="Enleak" width="150"/>  |  <img src="/assets/anddone.jpeg" alt="AndDone" width="150"/>  | 
 | ------------- | ------------- | ------------- | ------------- | 
 |   [Crucified Midget](https://github.com/11philip22)  | [Ashh](https://twitter.com/0xAshhh)    |   [Enleak](https://twitter.com/0xenleak)            | [AndDone](https://hackerone.com/anddone?type=user) |
 | malware  | web/AD |    web         |  web/re | 
