@@ -1,5 +1,7 @@
 # Configuring the Windows 10 x64 Blue Screen of Death
 
+Written by hypervis0r
+
 ## Introduction
 
 Some years ago, back in 2010, Mark Russinovich [wrote an article](https://techcommunity.microsoft.com/t5/windows-blog-archive/a-bluescreen-by-any-other-color/ba-p/723974) on how to change the Windows Vista Blue Screen of Death. In the article Mark goes over disassembling the `KeBugCheck2` and `KiDisplayBlueScreen` functions in WinDbg, and subsequently editing the memory of the kernel to change the blue screen colors. He later implemented a crash color picker into `NotMyFault`, a tool for crashing Windows, that worked by changing the VGA color palette (as at the time, blue screens were shown in VGA text mode). When Windows 8 rolled around, Microsoft decided that the blue screen should be less frightening, and added a sad emoticon to the crash screen, along with removing most of the crash information in favor of simplifying everything. This new blue screen was implemented using UEFI, specifically using the Graphics Output Protocol (GOP). Due to the new blue screen not using VESA/VGA, the `NotMyFault` color picker no longer worked, and nobody since has tried to replicate it's functionality on the latest versions of Windows, until now that is.
