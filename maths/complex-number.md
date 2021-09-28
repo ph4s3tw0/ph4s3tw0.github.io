@@ -1,4 +1,4 @@
-# Complex number
+# Complex numbers
 Written by Zero
 ## Reminders and historical approach
 
