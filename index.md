@@ -6,7 +6,7 @@ order: 999
 
 # About
 
-phastw0 is a penetration testing/CTF team of people who like to spend too much time on the computer doing technical activities such as hacking, programming and participating in CTFs.
+phasetw0 is a penetration testing/CTF team of people who like to spend too much time on the computer doing technical activities such as hacking, programming and participating in CTFs.
 
 ## Notable links
 
