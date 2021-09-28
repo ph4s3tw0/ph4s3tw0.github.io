@@ -17,12 +17,12 @@ CTFTime team: https://ctftime.org/team/133618
 
 ## Your tyrannical overlords
 
-| <img src="/assets/utopia.png" alt="Utopia" width="150"/> | <img src="assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="/assets/charif.jpg" alt="Charif" width="150"/> |
-| ------------- | ------------- | ------------- | 
-|   [sudoutopia](https://sudoutopia.github.io/)  | [Hypervisor](https://twitter.com/hypervis0r)    |   [charif](https://twitter.com/chrf01)            |
-| pwn/web 😳  | pwn/re/forensics |    browser/web         |
+| <img src="/assets/utopia.png" alt="Utopia" width="150"/> | <img src="assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="/assets/charif.jpg" alt="Charif" width="150"/> | <img src="assets/zero.png" alt="zero" width="150"/> |
+| ------------- | ------------- | ------------- | ------------- | 
+|   [sudoutopia](https://sudoutopia.github.io/)  | [Hypervisor](https://twitter.com/hypervis0r)    |   [charif](https://twitter.com/chrf01)            | [Zero](https://github.com/Nameless-chan) |
+| pwn/web 😳  | pwn/re/forensics |    browser/web         | web / maths |
 
-| <img src="/assets/crucified.png" alt="crucified midget" width="150"/> | <img src="assets/ashh.jpg" alt="ashh" width="150"/>  |  <img src="/assets/enleak.jpg" alt="Enleak" width="150"/>  |  <img src="/assets/anddone.jpeg" alt="AndDone" width="150"/>  | <img src="assets/zero.png" alt="zero" width="150"/> |
-| ------------- | ------------- | ------------- | ------------- | ------------- | 
-|   [Crucified Midget](https://github.com/11philip22)  | [Ashh](https://twitter.com/0xAshhh)    |   [Enleak](https://twitter.com/0xenleak)            | [AndDone](https://hackerone.com/anddone?type=user) | [Zero](https://github.com/Nameless-chan) |
-| malware  | web/AD |    web         |  web/re | web / maths |
+| <img src="/assets/crucified.png" alt="crucified midget" width="150"/> | <img src="assets/ashh.jpg" alt="ashh" width="150"/>  |  <img src="/assets/enleak.jpg" alt="Enleak" width="150"/>  |  <img src="/assets/anddone.jpeg" alt="AndDone" width="150"/>  | 
+| ------------- | ------------- | ------------- | ------------- | 
+|   [Crucified Midget](https://github.com/11philip22)  | [Ashh](https://twitter.com/0xAshhh)    |   [Enleak](https://twitter.com/0xenleak)            | [AndDone](https://hackerone.com/anddone?type=user) | 
+| malware  | web/AD |    web         |  web/re | 
