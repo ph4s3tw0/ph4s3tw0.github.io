@@ -1,5 +1,5 @@
 # Complex number
-Wrote by Zero
+Written by Zero
 ## Reminders and historical approach
 
 1) Solving a 1st degree equation --> of the form `ax + b = 0` (with a ≠ 0)
