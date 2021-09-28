@@ -6,23 +6,21 @@
     <meta name="turbo-cache-control" content="no-cache">
 
     <!-- Primary Meta Tags -->
-    <title>UIUCTF 2021 - CEO Writeup - phasetw0</title>
-    <meta name="title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
-    <meta name="description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap" />
+    <title>Complex number - phasetw0</title>
+    <meta name="title" content="Complex number - phasetw0">
+    <meta name="description" content="Solving a 1st degree equation --> of the form ax + b = 0(with a ≠ 0)--> always only one solution: x = -(a/b)" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://phasetw0.com/writeups/uiuctf2021_ceo/">
-    <meta property="og:title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
-    <meta property="og:description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap">
-    <meta property="og:image" content="https://user-images.githubusercontent.com/51839088/129170333-68eb291e-509c-4255-847e-181e1753b41c.png">
+    <meta property="og:url" content="https://phasetw0.com/maths/complex-number/">
+    <meta property="og:title" content="Complex number - phasetw0">
+    <meta property="og:description" content="Solving a 1st degree equation --> of the form ax + b = 0(with a ≠ 0)--> always only one solution: x = -(a/b)">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://phasetw0.com/writeups/uiuctf2021_ceo/">
-    <meta property="twitter:title" content="UIUCTF 2021 - CEO Writeup - phasetw0">
-    <meta property="twitter:description" content="CEO was a \"misc\" challenge during UIUCTF 2021 in which you need to inspect and gather creds from a .pcap">
-    <meta property="twitter:image" content="https://user-images.githubusercontent.com/51839088/129170333-68eb291e-509c-4255-847e-181e1753b41c.png">
+    <meta property="twitter:url" content="https://phasetw0.com/maths/complex-number/">
+    <meta property="twitter:title" content="Complex number - phasetw0">
+    <meta property="twitter:description" content="Solving a 1st degree equation --> of the form ax + b = 0(with a ≠ 0)--> always only one solution: x = -(a/b)">
     
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -31,7 +29,6 @@
 
     <script type="text/javascript" src="/resources/js/config.js?v=1.9.686151265745" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.9" defer data-turbo-track="reload"></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.9.686151265745" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -181,172 +178,215 @@
                 <div id="docs-sidebar-right-toggle"></div>
                
                 <!-- Page content  -->
-<doc-anchor-target id="uiuctf-2021---ceo-writeup" class="break-words">
+<doc-anchor-target id="complex-number" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#uiuctf-2021---ceo-writeup">#</doc-anchor-trigger>
-        <span>UIUCTF 2021 - CEO Writeup</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#complex-number">#</doc-anchor-trigger>
+        <span>Complex number</span>
     </h1>
 </doc-anchor-target>
-<p>CEO was a &quot;misc&quot; challenge during UIUCTF 2021 in which you need to inspect and gather creds from a <code v-pre>.pcap</code> file. It was rated as a &quot;beginner&quot; challenge in a CTF that was <em>extremely</em> challenging for myself, and forced me to dust off some serious CTF cob webs. While it&#x27;s not a very glamorous chall, this writeup aims to simply note some of the techniques I used to get the flag. So with that said, let&#x27;s jump in.</p>
-<doc-anchor-target id="the-prompt">
+<doc-anchor-target id="reminders-and-historical-approach">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#the-prompt">#</doc-anchor-trigger>
-        <span>The Prompt</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#reminders-and-historical-approach">#</doc-anchor-trigger>
+        <span>Reminders and historical approach</span>
     </h2>
 </doc-anchor-target>
-<p>Viewing the challenge, we&#x27;re prompted with the following note.</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129170333-68eb291e-509c-4255-847e-181e1753b41c.png" alt="chall" />
-    <figcaption class="caption">chall</figcaption>
-</figure>
-</p>
-<p><strong>Note: During the initial stages of the CTF, this sentence was not in the challenge prompt: &quot;Wrap the password in the flag format.&quot;
-This led me down some rabbit holes that we&#x27;ll see later.</strong></p>
-<doc-anchor-target id="initial-analysis">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#initial-analysis">#</doc-anchor-trigger>
-        <span>Initial Analysis</span>
-    </h2>
-</doc-anchor-target>
-<p>After downloading the <code v-pre>.pcap</code> and opening it in Wireshark, we can see there&#x27;s quite a bit of traffic, mostly using the 802.11 protocol.</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129171054-24fb4e55-178b-4eab-8302-c9f5baa95c56.png" alt="Wireshark" />
-    <figcaption class="caption">Wireshark</figcaption>
-</figure>
-</p>
-<p>If we click <code v-pre>Wireless &gt; WLAN Traffic</code> in Wireshark we can see that the SSID related to this captured traffic is: <code v-pre>joesheer</code>.</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129171260-db6ac97e-1126-4425-b357-a023d4b2f7bb.png" alt="SSID" />
-    <figcaption class="caption">SSID</figcaption>
-</figure>
-</p>
-<doc-anchor-target id="original-rabbit-hole">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#original-rabbit-hole">#</doc-anchor-trigger>
-        <span>Original Rabbit Hole</span>
-    </h2>
-</doc-anchor-target>
-<p>So as I mentioned earlier, the original challenge prompt was a little.... well a whole lot different.
-If you clicked the original hint it mentioned doing some OSINT on the CEO to get the Wi-fi password.</p>
-<p>I did some research and found that if you know the password used in captured 802.11 traffic, you can enter the password and wireshark will decrypt it.</p>
-<p>We can do this pretty easily by right clicking a captured 802.11 packet and hitting:</p>
-<p><code v-pre>Protocol Preferences -&gt; IEEE 802.11 Wireless LAN -&gt; Decryption Keys...</code></p>
-<p>Then create a new entry with the little plus at the bottom, select <code v-pre>wpa-pwd</code> as the key type, and enter the password in the <code v-pre>key</code> field.</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129172075-040d5d61-d5b6-4206-bf98-18549d5153e0.png" alt="decryption keys" />
-    <figcaption class="caption">decryption keys</figcaption>
-</figure>
-</p>
-<p>Anyways, knowing this my train of thought for the challenge was:</p>
 <ol>
-<li>Get potential password from OSINT on the CEO</li>
-<li>Enter password in Wireshark</li>
-<li>Find key in decrypted traffic</li>
+<li>Solving a 1st degree equation --&gt; of the form <code v-pre>ax + b = 0</code> (with a ≠ 0)
+--&gt; always only one solution: <code v-pre>x = -(a/b)</code></li>
+<li>Solving a 2nd degree equation --&gt; of the form <code v-pre>ax² + bx + c = 0</code>
+--&gt; use <code v-pre>x = (-b ±√(b²-4ac)/(2a)</code></li>
+<li>Solving the 3rd degree?
+--&gt; always at least one solution, and at most 3.
+----&gt; PoC why we&#x27;ve always at least one solution
+<code v-pre>f(x) = x³ + x² + x + 1</code>
+<code v-pre>lim(x-&gt;-∞) =&gt; f(x) = +∞</code> and <code v-pre>lim(x-&gt;+∞) =&gt; f(x) = -∞</code></li>
+<li>To find the <strong>integral roots</strong>: Horner&#x27;s method (1786 - 1837)</li>
+<li>To approximate non-integer <strong>roots</strong>: graphical, dichotomous methods....
+--&gt; Dichotomy
+----&gt; Bolzano&#x27;s theorem
+----&gt; On the interval AB we use Bolzano&#x27;s theorem; we divide the interval AB until equals a change of sign.</li>
 </ol>
-<p>Using the information we&#x27;ve gathered so far, we can find the CEO&#x27;s twitter account pretty easily:</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129172523-279c1a3d-f473-437f-a9a6-5153e44dda64.png" alt="Google searching" />
-    <figcaption class="caption">Google searching</figcaption>
-</figure>
-</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129172556-72534735-4e1c-4773-aa0d-562654f833ec.png" alt="CEO twitter" />
-    <figcaption class="caption">CEO twitter</figcaption>
-</figure>
-</p>
-<p>And this is where the rabbit hole begins.
-I spent more time than I&#x27;d like to admit searching through this account, his followers, who he&#x27;s following... their tweets... all to no avail.</p>
-<p>At a certain point I got desparate and wondered if I should just start guessing based on what he was talking about. After all it&#x27;s a beginner challenge right?</p>
-<p>Here&#x27;s my original wordlist concocted from his tweets/rewteets:</p>
+<p>Let the equation <code v-pre>x³ - 15x - 4 = 0</code> be used.
+-&gt; with Horner: 4 is found as a solution
+In the 16th century, <strong>Bombelli</strong> solves the following equation in the following way:</p>
+<ol>
+<li>He writes <code v-pre>x</code> in the form <code v-pre>a - b</code> -&gt; the equation becomes:</li>
+</ol>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">~/Downloads/wifi:&gt; $ cat fuckme.txt         
-megacorpone
-megacorp
-nanotech
-nanotechnology
-nano-technology
-MegaCorp_One
-MegaCorp
-DavidBeckham
-USA
-US
-equestrian
-horse
-horses
-soccer
-football
-manchesterunited
-manu
-manunited</code></pre>
+<pre class="language-none"><code v-pre class="language-none">(a-b)³ - 15(a-b)-4=0
+a³ - 3a²b + 3ab² - b³ - 15(a-b) - 4 = 0
+a³ - 3ab(a-b) - b³ - 15(a-b) - 4 = 0
+a³ - (a-b)(3ab+15) - b³ - 4 = 0</code></pre>
 </doc-codeblock></div>
-<p>I then manually entered each one into the Wireshark decryption keys section. While this didn&#x27;t work, as you&#x27;ll see later I actually wasn&#x27;t far off.</p>
-<doc-anchor-target id="flag">
+<ol start="2">
+<li>In this equation, a and b are the unknowns. Bombelli then imagines imposing between a and b u, a link that implies the writing, by posing <code v-pre>3ab + 15 = 0 or b = -5/a</code>
+Thus he kills two birds with one stone: he has only the unknown a left, and the equation is simplified:</li>
+</ol>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">a³ - (-5/a)² - 4 = 0
+OR
+a⁶ - 4a³ + 125 = 0</code></pre>
+</doc-codeblock></div>
+<ol start="3">
+<li>This equation is a bicarbonate equation.
+By positing <code v-pre>a³=t</code>, it becomes: <code v-pre>t² - 4t + 125 = 0</code>. But <code v-pre>ρ = -484 = 4 * 121</code>.
+To continue his reasoning, Bombelli assumes the existence of an <strong>imaginary number</strong>
+<code v-pre>√(-1)</code>, denoted later <strong>i</strong>, of square equal to -1.</li>
+</ol>
+<p>--&gt; <code v-pre>ρ = 4 * 121 * i²</code> ---&gt; <code v-pre>t = (4 ±2*11*i)/2 = 2±11*i</code>
+4. From the 1st value of t, he finds <code v-pre>a = 2 + i</code> because <code v-pre>a³ = (2+i)³</code> which is equivalent to <code v-pre>2³ + 3*2²*i + 3*2*i² + i³ = 8 + 12*i - 6 - i = 2 + 11*i</code> and thus <code v-pre>x = a - b = (2 + i) - (-2 + i) = 4</code>!!!
+For Bombelli, <code v-pre>i² = -1</code> was a useful fiction: using this imaginary i (which disappears during the calculation), the real solution was found.</p>
+<ul>
+<li>By imitating Bombelli, we can find solutions to the equation <code v-pre>x² + 1 = 0</code>.</li>
+<li>In fact, it is like:</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">x + 3 = 0; has no solution for the one who only knows the naturals (ℕ)
+2x + 5 = 0; has no solution for the one who knows only integers (ℤ)
+x² - 2 = 0 ; has no solution for the one who knows only the rationals (ℚ)
+x² + 1 = 0 ; has no solution for the one who knows only the reals (ℝ)</code></pre>
+</doc-codeblock></div>
+<p><strong>ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ</strong></p>
+<doc-anchor-target id="towards-a-new-ensemble">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#flag">#</doc-anchor-trigger>
-        <span>Flag</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#towards-a-new-ensemble">#</doc-anchor-trigger>
+        <span>Towards a new ensemble</span>
     </h2>
 </doc-anchor-target>
-<p>Some frustrated research later led me to realizing there&#x27;s an alternate path to success.</p>
-<p>Wi-fi traffic typically contains a 4-way handshake between a router and client.</p>
-<p>We can easily view this handshake by using the <code v-pre>eapol</code> filter in Wireshark.</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129173831-6d979fa8-e85d-4ab8-989e-338d0e8a549d.png" alt="viewing eapol" />
-    <figcaption class="caption">viewing eapol</figcaption>
-</figure>
-</p>
-<p>This essentially just means that the client and host have agreed to talk to eachother, and the traffic is encapsulated.</p>
-<p>What this also means for us is that there&#x27;s a valid WPA key (we already knew this but pretend you didn&#x27;t) that we can crack.</p>
-<doc-anchor-target id="cracking-the-password">
+<p>Goal: to introduce a set larger than ℝ, in which all elements, even negative ones, admit a root of even index and to exploit these elements as tools for algebra, trigonometry, geometry, physics....: the set of <strong>complex numbers</strong></p>
+<doc-anchor-target id="new-law">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#cracking-the-password">#</doc-anchor-trigger>
-        <span>Cracking the password</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#new-law">#</doc-anchor-trigger>
+        <span>New law</span>
     </h3>
 </doc-anchor-target>
-<p>To crack the captured handshake with Hashcat, we&#x27;ll need to use <code v-pre>cap2hccapx</code> to get it into the <a href="https://hashcat.net/wiki/doku.php?id=hccapx">hccapx format</a>.</p>
-<p>This most likely won&#x27;t be in your path by default (if you&#x27;re using Kali), but we can locate it pretty easily.</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129174463-3c3555c9-1ab5-4275-bee9-9b1a757bef83.png" alt="cap2hccapx" />
-    <figcaption class="caption">cap2hccapx</figcaption>
-</figure>
-</p>
-<p>After that we just give it the <code v-pre>.cap</code> file and a name to write to:</p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129174610-be5c4e09-93c3-48aa-9e20-07cfc30696b7.png" alt="Getting a hccapx" />
-    <figcaption class="caption">Getting a hccapx</figcaption>
-</figure>
-</p>
-<p>We can then use Hashcat to crack it:</p>
-<p><code v-pre>~/ctf/uiuctf_2021/misc/CEO:&gt; $ hashcat -m 2500 hccapx-out /usr/share/wordlists/rockyou.txt --force </code></p>
-<p><figure class="content-center">
-    <img src="https://user-images.githubusercontent.com/51839088/129174858-af1113b3-7f0f-4288-bd57-3503f09eff5b.png" alt="" />
-    <figcaption class="caption"></figcaption>
-</figure>
-</p>
-<p>Now we can submit the flag! Except... well I didn&#x27;t initially.</p>
-<p>So I originally didn&#x27;t realize that the Wi-Fi password was the actual flag.</p>
-<p>I falsely assumed that you must use the password to decrypt the traffic then find the flag in some decrypted packet.</p>
-<p>After aimlessly searching through packets, I noticed the challenge writeup was updated and submitted the flag I already had.</p>
-<p>Done!</p>
-<doc-anchor-target id="closing-thoughts">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#closing-thoughts">#</doc-anchor-trigger>
-        <span>Closing Thoughts</span>
-    </h2>
+<p>To &quot;make&quot; a complex number, use 2 real numbers --&gt; use ℝ²</p>
+<ul>
+<li>Law already known about ℝ²:</li>
+</ul>
+<ul>
+<li>Internal law + : <code v-pre>ℝ² * ℝ² -&gt; ℝ² : ((a,b),(c,d)) ~&gt; (a+c, b+d)</code>
+Properties =&gt; (ℝ², +) = commutative group</li>
+<li>External law * : <code v-pre>ℝ * ℝ² -&gt; ℝ² : (r,(a,b)) ~&gt; (ra,rb)</code>
+Properties =&gt; <code v-pre>(ℝ,ℝ²,+)</code> = vector space of dimension 2</li>
+</ul>
+<ul>
+<li>New law on ℝ²:
+internal multiplication . : <code v-pre>ℝ² * ℝ² -&gt; ℝ²</code><br>
+Properties =&gt; <code v-pre>(ℝ²{(0,0)}, -)</code> = commutative group</li>
+</ul>
+<doc-anchor-target id="construction-of-ℂ">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#construction-of-ℂ">#</doc-anchor-trigger>
+        <span>Construction of ℂ</span>
+    </h3>
 </doc-anchor-target>
-<p>You might also notice that the cracked password was actually in my original manual wordlist from Twitter. I&#x27;ll be honest I can&#x27;t remember if I noticed that the traffic was decrypted with this password or not. This just added to the overall frustration of what should have been a really simple challenge. Oh well, still ended up learning something new.</p>
-<p>Thanks for reading :)</p>
-<p><em>Written by 0xAshh</em></p>
-<doc-anchor-target id="hit-me-up">
+<p><strong>Preliminary remark</strong></p>
+<ul>
+<li><code v-pre>(r,o) * (a,b) = (ra,rb) = (a,b) * (r,o)</code> // <code v-pre>r</code> and <code v-pre>(r,o)</code> are 2 elements of very different sets but play a similar role.</li>
+<li>r * (a,b) = (ra,rb) = (a,b) * r&#x60; -&gt; &quot;identify&quot; them by an isomorphism</li>
+</ul>
+<ul>
+<li><p>Let <code v-pre>P = {(a, 0) | a ∈ ℝ} ⊂ ℝ²</code> (represented in the Cartesian plane by the X axis)</p>
+</li>
+<li><p><code v-pre>f : P -&gt; ℝ : (a,0)</code> ~&gt; a is a <strong>bijection</strong> that respects the + law because <code v-pre>f((a,0)+(b,0)) = f((a,0)) + f((b,0))</code> and the * law because <code v-pre>f((a,0) * (b,0)) = f((a,0)) * f((b,0))</code></p>
+</li>
+</ul>
+<p>This is an isomorphism =&gt; same properties in the 2 fields <code v-pre>(ℝ, +, *)</code> and <code v-pre>(P, +, *)</code><br>
+=&gt; each pair of type (a,0) will be noted <strong>a</strong> <em>(a,0)≠a</em><br></p>
+<ul>
+<li>What about the other pairs?
+<code v-pre>(a,b) = (a,0) + (0, b) = (a, 0) + (b, 0) * (0, 1)</code> <br>
+so i = new notation for (0,1), and (a,b) will be denoted <code v-pre>a + bi</code></li>
+</ul>
+<p><strong>N.B.</strong> <code v-pre>(0,1) * (0,1) = (-1,0)</code>, which is noted <strong>i² = -1</strong>.</p>
+<ul>
+<li>i is called the <strong>imaginary unit</strong> (it is a square root of -1)</li>
+<li>A complex number = an element of ℝ² which has changed notation.</li>
+<li>The set of these numbers is noted ℂ</li>
+</ul>
+<doc-anchor-target id="operations-and-calculation-rules---properties">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#hit-me-up">#</doc-anchor-trigger>
-        <span>Hit me up</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#operations-and-calculation-rules---properties">#</doc-anchor-trigger>
+        <span>Operations and calculation rules - properties</span>
     </h2>
 </doc-anchor-target>
 <ul>
-<li><a href="https://twitter.com/0xAshhh">Twitter</a></li>
-<li><a href="https://github.com/0xash">GitHub</a></li>
-<li>Discord: Ashh#1446</li>
+<li><p>Law +:
+In ℝ²: <code v-pre>(a,b) + (c,d) = (a+c, b+d)</code><br>
+==&gt; In ℂ: <code v-pre>a + bi + c + di = a + c + (b + d) * i</code><br></p>
+</li>
+<li><p>Law *:
+In ℝ²: <code v-pre>(a,b) * (c,d) = (ac - bd, ad + bc)</code><br>
+==&gt; In ℂ: <code v-pre>(a + bi) * (c + di) = ac - bd + (ad + bc) * i</code><br></p>
+</li>
+<li><p><code v-pre>(ℂ,+,*)</code> = fields because <code v-pre>(ℝ²,+,*)</code> is one.</p>
+</li>
+<li><p>ℝ⊂ℂ because ℝ identified with P which is ⊂ℝ²</p>
+</li>
+<li><p>Vocabulary: ∀Z ∈ ℂ, Z is uniquely written <code v-pre>a + bi</code>.
+The real a is called the <strong>real part</strong> of z -&gt; a = R(z)<br>
+The real b is called the <strong>imaginary part</strong> of z -&gt; b = I(z)<br>
+<br>
+if a = 0 and b ≠ 0, z = bi is <strong>pure imaginary</strong><br>
+if a ≠ 0 and b = 0, z = a is real<br></p>
+</li>
+<li><p>2 complex numbers are <strong>equal</strong> &lt;=&gt; they have the same real part and the same imaginary part i.e. <code v-pre>a + bi = c + di &lt;=&gt; a = c and b = d</code></p>
+</li>
+<li><p>2 complex numbers are <strong>conjugate</strong> &lt;=&gt; they have the same real part and opposite imaginary parts:
+-&gt; if <code v-pre>z = a + bi</code>, its conjugate = <code v-pre>a - bi</code></p>
+</li>
+<li><p>∀Z ∈ ℂ: zˉz ∈ ℝ <em>(note that ˉz = z conjugate)</em></p>
+</li>
 </ul>
+<doc-anchor-target id="geometric-representation-of-ℂ">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#geometric-representation-of-ℂ">#</doc-anchor-trigger>
+        <span>Geometric representation of ℂ</span>
+    </h2>
+</doc-anchor-target>
+<ul>
+<li><p>To represent ℝ²: on the Cartesian plane π0<br>
+Each vector (with, at its end, a point) is marked by a pair of coordinates</p>
+</li>
+<li><p>To any complex number <code v-pre>à + bi</code> corresponds 1! pair<br>
+--&gt; 1! vector = <strong>vector-image</strong> of <code v-pre>a + bi</code>, 1! point = <strong>point-image</strong> of <code v-pre>a + bi</code></p>
+</li>
+<li><p>To any vector corresponds 1! complex number = <strong>its affix</strong><br>
+--&gt; If every element of π0 is marked by its affix, we have the <strong>Gaussian plane</strong> (or Argand&#x27;s plane)<br>
+(a,b) = component of →v<br>
+a + bi = affix of →v<br>
+→v = image vector of a + bi<br>
+M = image point of a + bi<br></p>
+</li>
+</ul>
+<p>If →v = image vector of <code v-pre>z = a + bi</code>; the norm of <code v-pre>→v = ||→v|| = √(a² + b²)</code> = the modulus of z<br>
+This is denoted |z|; it is also worth <code v-pre>√(z * ˉz)</code> (and corresponds to the notion of absolute value if z ∈ ℝ⁺)</p>
+<doc-anchor-target id="square-roots-of-complex-numbers">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#square-roots-of-complex-numbers">#</doc-anchor-trigger>
+        <span>Square roots of complex numbers</span>
+    </h2>
+</doc-anchor-target>
+<ol>
+<li>Existence and form</li>
+</ol>
+<ul>
+<li>Not all real numbers admit square roots</li>
+<li>Does every complex number admit 2 square roots? To be proved!
+Let z ∈ ℂ --&gt; <code v-pre>z = a + bi</code> with a and b real given<br>
+z admits a square root &lt;=&gt; ∃ z&#x27; ∈ ℂ verifying z&#x27;² = z (*); denoted RC(z) = z&#x27; = x + yi with x and y searched<br>
+<code v-pre>(*) ))&gt; (x + yi)² = a + bi</code> <br></li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">==&gt; x² - y² = a -&gt; x⁴ + y⁴ - 2x²y² = a²
+==&gt; 2xy = b -&gt; 4x²y² = b² --&gt; (x² + y²)² = a² + b²
+x² + y² = ±√(a² + b²)</code></pre>
+</doc-codeblock></div>
+<p>In conclusion, any complex number z admits 2 square roots:<br>
+If z ∈ ℝ⁺ , the 2 roots are real and opposite;<br>
+If z ∈ ℝ-0 , the 2 roots are complex and opposite;<br>
+If z ∈ ℂ \ ℝ , the 2 roots are complex and opposite.<br></p>
 
 
 
@@ -358,16 +398,23 @@ manunited</code></pre>
             
 <nav class="flex mt-14">
     <div class="w-1/2">
-        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/windows-internals/bsod-configuration/">
+        <a class="px-5 py-4 h-full flex items-center break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/malware/writing-optimized-windows-shellcode-in-c/">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
             <span>
                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                <span class="block mt-1">Configuring the Windows 10 x64 Blue Screen of Death</span>
+                <span class="block mt-1">Writing Optimized Windows Shellcode in C</span>
             </span>
         </a>
     </div>
 
     <div class="w-1/2">
+        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-all md:break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/windows-internals/bsod-configuration/">
+            <span>
+                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                <span class="block mt-1">Configuring the Windows 10 x64 Blue Screen of Death</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+        </a>
     </div>
 </nav>
 
@@ -412,6 +459,6 @@ manunited</code></pre>
 
         <div id="docs-overlay-target"></div>
 
-        <script>window.__DOCS__ = { "title": "UIUCTF 2021 - CEO Writeup", icon: "file", hasPrism: true, hasMermaid: false }</script>
+        <script>window.__DOCS__ = { "title": "Complex number", icon: "file", hasPrism: false, hasMermaid: false }</script>
     </body>
 </html>
