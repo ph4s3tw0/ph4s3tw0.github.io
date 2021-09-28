@@ -1,4 +1,5 @@
 # Complex number
+Wrote by Zero
 ## Reminders and historical approach
 
 1) Solving a 1st degree equation --> of the form `ax + b = 0` (with a ≠ 0)
@@ -11,15 +12,15 @@
 			`f(x) = x³ + x² + x + 1`
 			`lim(x->-∞) => f(x) = +∞` and `lim(x->+∞) => f(x) = -∞` 
 4) To find the __integral roots__: Horner's method (1786 - 1837)
-5) To approximate non-integer __roots__: graphical, dichotomous methods....
---> Dichotomy
-----> Bolzano's theorem
-----> On the interval AB we use Bolzano's theorem; we divide the interval AB until equals a change of sign.
+5) To approximate non-integer __roots__: graphical, dichotomous methods....<br>
+--> Dichotomy<br>
+----> Bolzano's theorem<br>
+----> On the interval AB we use Bolzano's theorem; we divide the interval AB until equals a change of sign.<br>
 
 
-Let the equation `x³ - 15x - 4 = 0` be used.
--> with Horner: 4 is found as a solution
-In the 16th century, __Bombelli__ solves the following equation in the following way:
+Let the equation `x³ - 15x - 4 = 0` be used.<br>
+-> with Horner: 4 is found as a solution<br>
+In the 16th century, __Bombelli__ solves the following equation in the following way:<br>
 1. He writes `x` in the form `a - b` -> the equation becomes:
 ```
 (a-b)³ - 15(a-b)-4=0
@@ -35,12 +36,12 @@ OR
 a⁶ - 4a³ + 125 = 0
 ```
 3. This equation is a bicarbonate equation.
-By positing `a³=t`, it becomes: `t² - 4t + 125 = 0`. But `ρ = -484 = 4 * 121`.
-To continue his reasoning, Bombelli assumes the existence of an **imaginary number**
-`√(-1)`, denoted later **i**, of square equal to -1.
+By positing `a³=t`, it becomes: `t² - 4t + 125 = 0`. But `ρ = -484 = 4 * 121`.<br>
+To continue his reasoning, Bombelli assumes the existence of an **imaginary number**<br>
+`√(-1)`, denoted later **i**, of square equal to -1.<br>
 
---> `ρ = 4 * 121 * i²` ---> `t = (4 ±2*11*i)/2 = 2±11*i`
-4. From the 1st value of t, he finds `a = 2 + i` because `a³ = (2+i)³` which is equivalent to `2³ + 3*2²*i + 3*2*i² + i³ = 8 + 12*i - 6 - i = 2 + 11*i` and thus `x = a - b = (2 + i) - (-2 + i) = 4`!!!
+--> `ρ = 4 * 121 * i²` ---> `t = (4 ±2*11*i)/2 = 2±11*i`<br>
+4. From the 1st value of t, he finds `a = 2 + i` because `a³ = (2+i)³` which is equivalent to `2³ + 3*2²*i + 3*2*i² + i³ = 8 + 12*i - 6 - i = 2 + 11*i` and thus `x = a - b = (2 + i) - (-2 + i) = 4`!!!<br>
 For Bombelli, `i² = -1` was a useful fiction: using this imaginary i (which disappears during the calculation), the real solution was found.
 
 * By imitating Bombelli, we can find solutions to the equation `x² + 1 = 0`.
