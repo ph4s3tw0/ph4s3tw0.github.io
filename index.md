@@ -8,8 +8,7 @@ order: 999
 
 phastw0 is a penetration testing/CTF team of people who like to spend too much time on the computer doing technical activities such as hacking, programming and participating in CTFs.
 
-
-## Notably work / references
+## Notable links
 
 HackTheBox Team: https://www.hackthebox.eu/home/teams/profile/4088
 
