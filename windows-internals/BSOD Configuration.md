@@ -1,6 +1,6 @@
 # Configuring the Windows 10 x64 Blue Screen of Death
 
-Written by hypervis0r
+###### Written by [hypervis0r](https://twitter.com/hypervis0r)
 
 ## Introduction
 
@@ -8,7 +8,7 @@ Some years ago, back in 2010, Mark Russinovich [wrote an article](https://techco
 
 ## What even is a "Blue Screen of Death"?
 
-I started my quest to configure the Blue Screen by disassembling `ntoskrnl.exe `, the executive kernel that oversees everything in Windows. Blue Screens appear when the Windows kernel is in an unrecoverable state. This can happen when a "Bug Check" occurs in the system, which happens whenever a bug occurs in the kernel level. Bug Checks are a preventative measure, so that there is no loss of data and the system can halt gracefully. Drivers can call the function `KeBugCheck` to trigger a bug check, and crash the system. Due to `KeBugCheck` being the function that triggers the blue screen, I decided to start reverse engineering there. 
+I started my quest to configure the Blue Screen by disassembling `ntoskrnl.exe`, the executive kernel that oversees everything in Windows. Blue Screens appear when the Windows kernel is in an unrecoverable state. This can happen when a "Bug Check" occurs in the system, which happens whenever a bug occurs in the kernel level. Bug Checks are a preventative measure, so that there is no loss of data and the system can halt gracefully. Drivers can call the function `KeBugCheck` to trigger a bug check, and crash the system. Due to `KeBugCheck` being the function that triggers the blue screen, I decided to start reverse engineering there. 
 
 ## Disassembling ntoskrnl.exe
 
