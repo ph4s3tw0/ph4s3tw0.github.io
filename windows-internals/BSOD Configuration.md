@@ -1,6 +1,6 @@
 # Configuring the Windows 10 x64 Blue Screen of Death
 
-###### Written by [hypervis0r](https://twitter.com/hypervis0r)
+#### Written by [hypervis0r](https://twitter.com/hypervis0r)
 
 ## Introduction
 
