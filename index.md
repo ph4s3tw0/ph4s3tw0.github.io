@@ -8,13 +8,6 @@ order: 999
 
 phasetw0 is a penetration testing/CTF team of people who like to spend too much time on the computer doing technical activities such as hacking, programming and participating in CTFs.
 
-## Notable links
-
-HackTheBox Team: https://www.hackthebox.eu/home/teams/profile/4088
-
-CTFTime team: https://ctftime.org/team/133618
-
-
 ## Your tyrannical overlords
 
 | <img src="/assets/utopia.png" alt="Utopia" width="150"/> | <img src="assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="/assets/charif.jpg" alt="Charif" width="150"/> | <img src="assets/zero.png" alt="zero" width="150"/> |

@@ -15,9 +15,17 @@
 
     "links": [
         {
-          "text": "GitHub",
-          "link": "https://github.com/ph4s3tw0"
-        }
+          	"text": "GitHub",
+          	"link": "https://github.com/ph4s3tw0"
+        },
+	{
+		"text": "HackTheBox",
+		"link": "https://www.hackthebox.eu/home/teams/profile/4088"
+	},
+	{
+		"text": "CTFTime",
+		"link": "https://ctftime.org/team/133618"
+	}
     ],
 
     "footer": {
