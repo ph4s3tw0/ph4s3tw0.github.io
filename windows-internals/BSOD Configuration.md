@@ -20,15 +20,15 @@ ___
 
 After going through some iterations of `KeBugCheck`, I finally find a noteworthy function, `KiDisplayBlueScreen`. In this function, the kernel appears to send debug information over serial, and prepare to display the blue screen. While `KiDisplayBlueScreen` is not directly responsible for displaying the blue screen, it does call a rather interesting function that does, `BgpFwDisplayBugCheckScreen`. In this function, we find out that the screen is cleared and the background is set using `BgpClearScreen`, which takes in a color as a parameter. The color passed to `BgpClearScreen` is found by accessing some structs that I reversed.
 
-![clear_screen](assets\ClearScreen.png)
+![IDA snippet](assets\ClearScreen.png)
 
 Well how does `BgpCriticalState` get initialized? Following the xrefs led me to `BgpBcInitializeCriticalMode`, a function that gets called early in the Windows boot phase. This function sets all of the error messages shown in the blue screen, font information, and the key variable we are looking for, the background color.
 
-![color_var](assets\color_var.png)
+![Color variable being set](assets\color_var.png)
 
 Noting the hex color format, it appears to be in ARGB format (Alpha, Red, Green, Blue). This is further supported by disassembling `BgpClearScreen`. `BgpClearScreen` works by essentially drawing a rectangle the size of your boot screen resolution and filling the rectangle with the specified color.
 
- ![fill_rect](assets\fill_rect.png)
+ ![BgpClearScreen disassembled](assets\fill_rect.png)
 
 As you can see, the most significant byte is set to the alpha, while the RGB colors get set by popping off the most significant byte (removing the A from ARGB). So, if we wanted to draw a red rectangle to the screen, we would use the color value `0xFFFF0000`. 
 
