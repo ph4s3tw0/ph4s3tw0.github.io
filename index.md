@@ -15,7 +15,7 @@ phasetw0 is a penetration testing/CTF team of people who like to spend too much 
 |   [sudoutopia](https://sudoutopia.github.io/)  | [Hypervisor](https://twitter.com/hypervis0r)    |   [charif](https://twitter.com/chrf01)            | [Zero](https://github.com/Nameless-chan) |
 | pwn/web 😳  | pwn/re/forensics |    browser/web         | web / maths |
 
-| <img src="/assets/crucified.png" alt="crucified midget" width="150"/> | <img src="assets/ashh.jpg" alt="ashh" width="150"/>  |  <img src="/assets/enleak.jpg" alt="Enleak" width="150"/>  |  <img src="/assets/anddone.jpeg" alt="AndDone" width="150"/>  | 
-| ------------- | ------------- | ------------- | ------------- | 
-|   [Crucified Midget](https://github.com/11philip22)  | [Ashh](https://twitter.com/0xAshhh)    |   [Enleak](https://twitter.com/0xenleak)            | [AndDone](https://hackerone.com/anddone?type=user) | 
-| malware  | web/AD |    web         |  web/re | 
+| <img src="/assets/crucified.png" alt="crucified midget" width="150"/>  |  <img src="/assets/enleak.jpg" alt="Enleak" width="150"/>  |  <img src="/assets/anddone.jpeg" alt="AndDone" width="150"/>  | 
+| ------------- | ------------- | ------------- | 
+|   [Crucified Midget](https://github.com/11philip22)  |   [Enleak](https://twitter.com/0xenleak)            | [AndDone](https://hackerone.com/anddone?type=user) | 
+| malware  |    web         |  web/re | 
