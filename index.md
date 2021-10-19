@@ -10,10 +10,10 @@ phasetw0 is a penetration testing/CTF team of people who like to spend too much 
 
 ## Your tyrannical overlords
 
-| <img src="/assets/utopia.png" alt="Utopia" width="150"/> | <img src="assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="/assets/charif.jpg" alt="Charif" width="150"/> | <img src="assets/zero.png" alt="zero" width="150"/> |
-| ------------- | ------------- | ------------- | ------------- | 
-|   [sudoutopia](https://sudoutopia.github.io/)  | [Hypervisor](https://twitter.com/hypervis0r)    |   [charif](https://twitter.com/chrf01)            | [Zero](https://github.com/Nameless-chan) |
-| pwn/web 😳  | pwn/re/forensics |    browser/web         | web / maths |
+|  <img src="assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="/assets/charif.jpg" alt="Charif" width="150"/> | <img src="assets/zero.png" alt="zero" width="150"/> |
+| ------------- | ------------- | ------------- | 
+| [Hypervisor](https://twitter.com/hypervis0r)    |   [charif](https://twitter.com/chrf01)            | [Zero](https://github.com/Nameless-chan) |
+| pwn/re/forensics |    browser/web         | web / maths |
 
 | <img src="/assets/crucified.png" alt="crucified midget" width="150"/>  |  <img src="/assets/enleak.jpg" alt="Enleak" width="150"/>  |  <img src="/assets/anddone.jpeg" alt="AndDone" width="150"/>  | 
 | ------------- | ------------- | ------------- | 
