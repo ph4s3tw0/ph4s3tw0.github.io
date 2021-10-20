@@ -10,8 +10,8 @@ phasetw0 is a penetration testing/CTF team of people who like to spend too much 
 
 ## Your tyrannical overlords
 
-|  <img src="assets/hypervisor.jpg" alt="Hypervisor" width="150"/>  | <img src="/assets/charif.jpg" alt="Charif" width="150"/> | <img src="assets/zero.png" alt="zero" width="150"/> |
-| ------------- | ------------- | ------------- | 
+|  <img src="assets/hypervisor.jpg" alt="Hypervisor" width="150"/> | <img src="assets/zero.png" alt="zero" width="150"/> |
+| ------------- | ------------- |
 | [Hypervisor](https://twitter.com/hypervis0r)    |    [Zero](https://github.com/Nameless-chan) |
 | pwn/re/forensics |     web / maths |
 
