@@ -1,7 +1,7 @@
 # Compiling LLVM with visual studio.
 Here at Phasetw0 we hate monolitic compilers. Thats why we exclusively use the llvm compiler infrastructure as our build toolchain.  
 Written by 11philip22.  
-![index](https://user-images.githubusercontent.com/26529935/138117417-a709eed3-5c86-4b46-9167-e67741684dd2.png)
+![wyvern](https://user-images.githubusercontent.com/26529935/138117417-a709eed3-5c86-4b46-9167-e67741684dd2.png)
 ## Step #1: Build
 ### Prerequisites
 Install both clang extensions in Visual Studio.  
