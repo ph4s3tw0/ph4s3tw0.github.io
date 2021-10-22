@@ -2,8 +2,10 @@
 Here at Phasetw0 we hate monolitic compilers. Thats why we exclusively use the llvm compiler infrastructure as our build toolchain.  
 Written by 11philip22.  
 ![wyvern](https://user-images.githubusercontent.com/26529935/138117417-a709eed3-5c86-4b46-9167-e67741684dd2.png)
-## Step #1: Build
+
+## Build
 ### Prerequisites
+Install cmake.  
 Install both clang extensions in Visual Studio.  
 ![Screenshot_2021-10-20_16-09-35](https://user-images.githubusercontent.com/26529935/138109331-99c6713e-4c0c-4347-91b3-05b5c7a29c92.png)  
 
@@ -30,7 +32,7 @@ Now build the `ALL_BUILD` project to compile llvm.
 ![Screenshot_2021-10-20_16-26-23 <](https://user-images.githubusercontent.com/26529935/138112614-2a7f935d-d167-44da-990b-bbf6b15c0de5.png) ![Screenshot_2021-10-21_09-52-07](https://user-images.githubusercontent.com/26529935/138235102-6c363e17-bba6-45fc-ac81-9adf2a055ef5.png)  
 Run the `INSTALL` project to install llvm to `C:\llvm`
 
-## Step #2: Using llvm with Visual Studio
+## Using llvm from within Visual Studio
 First we create a new Visual Studio project with the name llvmTest.  
 Create a `HelloWorld.c` source file with the following contents:
 ```c
