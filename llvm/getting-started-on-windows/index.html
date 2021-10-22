@@ -27,11 +27,11 @@
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="/assets/logo.png" rel="icon" />
-    <link href="/resources/css/retype.css?v=1.10.688124845865" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.10.688211794597" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.10.688124845865" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.10.688211794597" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.10" defer data-turbo-track="reload"></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.10.688124845865" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.10.688211794597" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -206,10 +206,10 @@ Written by 11philip22.<br />
     <figcaption class="caption">wyvern</figcaption>
 </figure>
 </p>
-<doc-anchor-target id="step-1-build">
+<doc-anchor-target id="build">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#step-1-build">#</doc-anchor-trigger>
-        <span>Step #1: Build</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#build">#</doc-anchor-trigger>
+        <span>Build</span>
     </h2>
 </doc-anchor-target>
 <doc-anchor-target id="prerequisites">
@@ -218,7 +218,8 @@ Written by 11philip22.<br />
         <span>Prerequisites</span>
     </h3>
 </doc-anchor-target>
-<p>Install both clang extensions in Visual Studio.<br />
+<p>Install cmake.<br />
+Install both clang extensions in Visual Studio.<br />
 <figure class="content-center">
     <img src="https://user-images.githubusercontent.com/26529935/138109331-99c6713e-4c0c-4347-91b3-05b5c7a29c92.png" alt="Screenshot_2021-10-20_16-09-35" />
     <figcaption class="caption">Screenshot_2021-10-20_16-09-35</figcaption>
@@ -257,10 +258,10 @@ cmake -S llvm -B build -DLLVM_ENABLE_PROJECTS=&quot;clang;lld&quot; -DLLVM_USE_L
 Now build the <code v-pre>ALL_BUILD</code> project to compile llvm.<br />
 <img src="https://user-images.githubusercontent.com/26529935/138112614-2a7f935d-d167-44da-990b-bbf6b15c0de5.png" alt="Screenshot_2021-10-20_16-26-23 <" /> <img src="https://user-images.githubusercontent.com/26529935/138235102-6c363e17-bba6-45fc-ac81-9adf2a055ef5.png" alt="Screenshot_2021-10-21_09-52-07" /><br />
 Run the <code v-pre>INSTALL</code> project to install llvm to <code v-pre>C:\llvm</code></p>
-<doc-anchor-target id="step-2-using-llvm-with-visual-studio">
+<doc-anchor-target id="using-llvm-from-within-visual-studio">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#step-2-using-llvm-with-visual-studio">#</doc-anchor-trigger>
-        <span>Step #2: Using llvm with Visual Studio</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#using-llvm-from-within-visual-studio">#</doc-anchor-trigger>
+        <span>Using llvm from within Visual Studio</span>
     </h2>
 </doc-anchor-target>
 <p>First we create a new Visual Studio project with the name llvmTest.<br />
