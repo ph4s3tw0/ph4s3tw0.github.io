@@ -210,7 +210,7 @@ Seems like a standard webpage with nothing interesting, and viewing the source a
 
 Inputting wrong credentials, redirects us to `https://awkward-bypass.chal.imaginaryctf.org/user` with a response saying `Error`
 
-![errorpage](../assets/images/imginaryCTF/errorlogin.png)
+![errorpage](../assets/images/imaginaryCTF/errorlogin.png)
 
 We can assume that when we feed in the correct credentials, it will not respond with that.
 
