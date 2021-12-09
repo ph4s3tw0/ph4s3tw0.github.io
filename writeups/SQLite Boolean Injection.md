@@ -321,7 +321,7 @@ We've now officially bypassed the blacklisting/filtering.
 
 We can bypass authenticated pretty easily with the payload `' OorR 1=1; -- -`, this is pretty standard and basic.
 
-![injected](../assets/images/imginaryCTF/injected.png)
+![injected](../assets/images/imaginaryCTF/injected.png)
 
 It works! Except... we don't have the flag, **yet**. We now have to enumerate the table name column `password` which contains the flag using boolean SQLi.
 
