@@ -118,6 +118,9 @@ std::array<const char*, 21> func_names = {
 
 To start things off, we needed a control benchmark to determine whether a case performs better or worse. For this, we just run `GetProcAddress` with our list of functions from `ntdll.dll`. As expected, it performed moderately well in terms of the other techniques we tested. I suspect the reason why `GetProcAddress` is faster than most other custom implementations is due to the fact that there are some fancy tricks to optimize function resolving, such as [import hinting](https://devblogs.microsoft.com/oldnewthing/20100317-00/?p=14573) and [import binding](https://devblogs.microsoft.com/oldnewthing/20100318-00/?p=14563).
 
+###### Update:
+[Tom Wilson](https://twitter.com/uint_ptr) helpfully pointed out that the reason `GetProcAddress` is faster than most of these implementations is due to the fact that [`GetProcAddress` actually uses binary search internally](https://doxygen.reactos.org/d1/dda/ldrpe_8c.html#a4e9e9b9c629351c39174b18cd1225943). Always do your homework kids!
+
 ```cpp
 /* 
     /favor:AMD64 /arch:AVX2
