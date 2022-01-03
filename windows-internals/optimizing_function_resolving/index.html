@@ -27,12 +27,12 @@
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
     <link href="/assets/logo.png" rel="icon" />
-    <link href="/resources/css/retype.css?v=1.11.2.694528138297" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/resources/css/retype.css?v=1.11.2.694537833037" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.694528138297" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/config.js?v=1.11.2.694537833037" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/resources/js/retype.js?v=1.11.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.694528138297" defer></script>
-    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.694528138297" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=1.11.2.694537833037" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=1.11.2.694537833037" defer></script>
 </head>
     <body>
         <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -327,6 +327,13 @@ std::array&lt;const char*, 21&gt; func_names = {
     </h4>
 </doc-anchor-target>
 <p>To start things off, we needed a control benchmark to determine whether a case performs better or worse. For this, we just run <code v-pre>GetProcAddress</code> with our list of functions from <code v-pre>ntdll.dll</code>. As expected, it performed moderately well in terms of the other techniques we tested. I suspect the reason why <code v-pre>GetProcAddress</code> is faster than most other custom implementations is due to the fact that there are some fancy tricks to optimize function resolving, such as <a href="https://devblogs.microsoft.com/oldnewthing/20100317-00/?p=14573">import hinting</a> and <a href="https://devblogs.microsoft.com/oldnewthing/20100318-00/?p=14563">import binding</a>.</p>
+<doc-anchor-target id="update">
+    <h6>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#update">#</doc-anchor-trigger>
+        <span>Update:</span>
+    </h6>
+</doc-anchor-target>
+<p><a href="https://twitter.com/uint_ptr">Tom Wilson</a> helpfully pointed out that the reason <code v-pre>GetProcAddress</code> is faster than most of these implementations is due to the fact that <a href="https://doxygen.reactos.org/d1/dda/ldrpe_8c.html#a4e9e9b9c629351c39174b18cd1225943"><code v-pre>GetProcAddress</code> actually uses binary search internally</a>. Always do your homework kids!</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-cpp"><code v-pre class="language-cpp">/* 
     /favor:AMD64 /arch:AVX2
