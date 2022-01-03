@@ -1,5 +1,5 @@
 # Optimizing Windows Function Resolving: A Case Study Into GetProcAddress
-#### Written by hypervis0r and Jeff
+#### Written by [hypervis0r](https://twitter.com/hypervis0r) and [Jeff](https://twitter.com/Jeffsepticeye2)
 
 ## Introduction
 It was a cold winter morning. hypervis0r had just woken up at 1 AM because his sleep schedule was royally fucked, and he hopped onto the private phasetw0 discord server. In there, he noticed Jeff and base64 discussing the feasibility of running a binary search on the export data directory of a PE file in order to resolve functions.
